@@ -61,6 +61,16 @@ jobs:
           chmod +x setup_rust_android.sh
           ./setup_rust_android.sh
 
+      - name: Set NDK path for Rust
+        run: |
+          NDK_PATH="/usr/local/lib/android/sdk/ndk/28.2.13676358"
+          if [ ! -d "$NDK_PATH" ]; then
+            NDK_PATH="$(find /usr/local/lib/android/sdk/ndk -maxdepth 1 -type d | sort | tail -1)"
+          fi
+          echo "NDK_HOME=$NDK_PATH" >> $GITHUB_ENV
+          echo "ANDROID_NDK_HOME=$NDK_PATH" >> $GITHUB_ENV
+          echo "Using NDK at: $NDK_PATH"
+
       - name: Verify Rust setup
         run: |
           cd file_operations
@@ -173,6 +183,16 @@ jobs:
           cd file_operations
           chmod +x setup_rust_android.sh
           ./setup_rust_android.sh
+
+      - name: Set NDK path for Rust
+        run: |
+          NDK_PATH="/usr/local/lib/android/sdk/ndk/28.2.13676358"
+          if [ ! -d "$NDK_PATH" ]; then
+            NDK_PATH="$(find /usr/local/lib/android/sdk/ndk -maxdepth 1 -type d | sort | tail -1)"
+          fi
+          echo "NDK_HOME=$NDK_PATH" >> $GITHUB_ENV
+          echo "ANDROID_NDK_HOME=$NDK_PATH" >> $GITHUB_ENV
+          echo "Using NDK at: $NDK_PATH"
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
