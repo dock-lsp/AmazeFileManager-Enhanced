@@ -179,8 +179,8 @@ acra-core = { module = "ch.acra:acra-core", version.ref = "acraCore" }
 leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanaryAndroid" }
 
 amaze-trashBin = { module = "com.github.TeamAmaze:AmazeTrashBin", version.ref = "amazeTrashBin" }
-photoEditor = { module = "com.burhanrashid52:photoeditor", version.ref = "photoEditor" }
-uCrop = { module = "com.github.yalantis:ucrop", version.ref = "uCrop" }
+photo-editor = { module = "com.burhanrashid52:photoeditor", version.ref = "photoEditor" }
+u-crop = { module = "com.github.yalantis:ucrop", version.ref = "uCrop" }
 
 # ExoPlayer
 exoplayer-core = { module = "androidx.media3:media3-exoplayer", version.ref = "exoplayer" }

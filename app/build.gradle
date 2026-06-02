@@ -257,8 +257,8 @@ dependencies {
 
     implementation libs.gson
     implementation libs.amaze.trashBin
-    implementation libs.photoEditor
-    implementation libs.uCrop
+    implementation libs.photo.editor
+    implementation libs.u.crop
 
     // PDF processing libraries
     // Using Android's built-in PdfRenderer (API 21+) for reading PDFs
