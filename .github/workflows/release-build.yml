@@ -1,0 +1,189 @@
+name: Release Build and Publish
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g., 3.12.0)'
+        required: true
+        default: '3.12.0'
+
+env:
+  VERSION_NAME: ${{ github.event.inputs.version || github.ref_name }}
+
+jobs:
+  build-release:
+    name: Build Release APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: "temurin"
+          java-version: 17
+
+      - name: Set up NDK
+        uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: r28c
+          link-to-sdk: true
+          local-cache: true
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+
+      - name: Cache Rust dependencies
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            file_operations/target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+
+      - name: Setup Rust for Android
+        run: |
+          cd file_operations
+          chmod +x setup_rust_android.sh
+          ./setup_rust_android.sh
+
+      - name: Verify Rust setup
+        run: |
+          cd file_operations
+          echo "Verifying Rust Android targets..."
+          rustup target list --installed | grep android || echo "No Android targets found"
+          echo "Verifying cargo configuration..."
+          if [ -f .cargo/config.toml ]; then
+            echo ".cargo/config.toml exists"
+          else
+            echo ".cargo/config.toml missing"
+            exit 1
+          fi
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Build Release APK (Fdroid)
+        run: ./gradlew assembleFdroidRelease --stacktrace
+
+      - name: Build Release APK (Play)
+        run: ./gradlew assemblePlayRelease --stacktrace
+
+      - name: Rename APKs
+        run: |
+          mkdir -p release
+          cp app/build/outputs/apk/fdroid/release/*.apk release/AmazeFileManager-Fdroid-${{ env.VERSION_NAME }}.apk || true
+          cp app/build/outputs/apk/play/release/*.apk release/AmazeFileManager-Play-${{ env.VERSION_NAME }}.apk || true
+          echo "=== Built APKs ==="
+          ls -lh release/
+
+      - name: Generate Changelog
+        id: changelog
+        run: |
+          cat > CHANGELOG.md << 'EOF'
+          ## 新增功能
+          
+          ### 媒体功能
+          - 内置音视频播放器（支持 MP4、MKV、MP3、AAC、FLAC）
+          - 图片编辑器（裁剪、旋转、滤镜、标注）
+          - PDF工具（阅读、标注、合并、拆分、转图片）
+          
+          ### 开发者功能
+          - 代码编辑器增强（语法高亮、Git集成、代码折叠）
+          - 终端模拟器（多标签、Root支持、快捷键）
+          - 日志查看器（实时日志、级别筛选、导出）
+          
+          ### 其他改进
+          - 默认语言改为中文
+          - 多项性能优化
+          EOF
+
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: release/*.apk
+          body_path: CHANGELOG.md
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: Release-APKs-${{ env.VERSION_NAME }}
+          path: release/*.apk
+
+  build-debug:
+    name: Build Debug APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: "temurin"
+          java-version: 17
+
+      - name: Set up NDK
+        uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: r28c
+          link-to-sdk: true
+          local-cache: true
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+
+      - name: Cache Rust dependencies
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            file_operations/target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+
+      - name: Setup Rust for Android
+        run: |
+          cd file_operations
+          chmod +x setup_rust_android.sh
+          ./setup_rust_android.sh
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Upload Debug Artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: Debug-APKs-${{ env.VERSION_NAME }}
+          path: |
+            app/build/outputs/apk/fdroid/debug/*.apk
+            app/build/outputs/apk/play/debug/*.apk

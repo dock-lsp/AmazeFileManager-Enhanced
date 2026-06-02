@@ -1,0 +1,756 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Copyright (C) 2014-2017 Arpit Khurana <arpitkh96@gmail.com>, Vishal Nehra <vishalmeham2@gmail.com>
+
+    This file is part of Amaze File Manager.
+
+    Amaze File Manager is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    -->
+
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Amaze Διαχειριστής Αρχείων</string>
+    <string name="drawer_open">Άνοιγμα μενού πλοήγησης</string>
+    <string name="drawer_close">Κλείσιμο μενού πλοήγησης</string>
+    <string name="icon">Εικονίδιο</string>
+    <string name="apps">Διαχειριστής εφαρμογών</string>
+    <string name="ftp">Διακομιστής FTP</string>
+    <string name="setting">Ρυθμίσεις</string>
+    <string name="select">Επιλογή στοιχείου</string>
+    <string name="press_again">Πατήστε ξανά για έξοδο</string>
+    <string name="open">Άνοιγμα</string>
+    <string name="backup">Αντίγραφο ασφαλείας</string>
+    <string name="uninstall">Απεγκατάσταση</string>
+    <string name="play">Play store</string>
+    <string name="properties">Ιδιότητες</string>
+    <string name="copyingapks">Αντιγραφή  %d αρχείων APK σε %s</string>
+    <string name="delbook">Διαγραφή σελιδοδείκτη</string>
+    <string name="add_to_bookmarks">Προσθήκη σε σελιδοδείκτη</string>
+    <string name="enterpath">Εισάγετε διαδρομή</string>
+    <string name="cancel">ΑΚΥΡΟ</string>
+    <string name="create">ΔΗΜΙΟΥΡΓΙΑ</string>
+    <string name="loading">Φόρτωση&amp;#8230;</string>
+    <string name="file_empty">Το αρχείο είναι κενό</string>
+    <string name="error">Σφάλμα</string>
+    <string name="search_results">Αποτελέσματα αναζήτησης %s</string>
+    <string name="rename">Μετονομασία</string>
+    <string name="save">Αποθήκευση</string>
+    <string name="bookmarks_added">Οι σελιδοδείκτες προστέθηκαν</string>
+    <string name="fileexist">Υπάρχει ήδη αρχείο με το ίδιο όνομα </string>
+    <string name="name">Όνομα</string>
+    <string name="date">Ημερομηνία: </string>
+    <string name="location">Βρίσκεται σε: </string>
+    <string name="size_capitalized">Μέγεθος</string>
+    <string name="size">Μέγ. Φακέλου</string>
+    <string name="enterzipname">Εισάγετε το όνομα του Zip</string>
+    <string name="no_app_found">Δε βρέθηκε εφαρμογή για το άνοιγμα αυτού του αρχείου</string>
+    <string name="copying">Αντιγραφή</string>
+    <string name="moving">Μετακίνηση</string>
+    <string name="file">Αρχείο</string>
+    <string name="folder">Φάκελος</string>
+    <string name="newfolder">Νέος φάκελος</string>
+    <string name="entername">Εισάγετε όνομα</string>
+    <string name="extracting">Εξαγωγή</string>
+    <string name="stopping">Παύση</string>
+    <string name="open_parent">Άνοιγμα μητρικού φακέλου</string>
+    <string name="open_with">Άνοιγμα με</string>
+    <string name="share">Κοινή χρήση</string>
+    <string name="about">Σχετικά</string>
+    <string name="extract">Εξαγωγή</string>
+    <string name="compress">Συμπίεση</string>
+    <string name="yes">Ναι</string>
+    <string name="no">Όχι</string>
+    <string name="dialog_delete_category_directories">Φάκελοι</string>
+    <string name="dialog_delete_category_files">Αρχεία</string>
+    <string name="dialog_delete_disclaimer">Η διαγραφή των παρακάτω στοιχείων θα τα αφαιρέσει οριστικά από τη συσκευή σας και δεν θα είναι δυνατή η ανάκτησή τους.</string>
+    <string name="dialog_delete_temporarily_disclaimer">Σίγουρα θέλετε να διαγράψετε τα ακόλουθα στοιχεία;</string>
+    <string name="dialog_restore_disclaimer">Σίγουρα θέλετε να επαναφέρετε τα ακόλουθα στοιχεία;</string>
+    <string name="dialog_delete_title">Διαγραφή στοιχείων μόνιμα;</string>
+    <string name="deleting">Διαγραφή</string>
+    <string name="question_set_path_as_home">Θέλετε να ορίσετε την τρέχουσα διαδρομή ως \"αρχική\" για αυτή την καρτέλα;</string>
+    <string name="directorysort">Τύπος Ταξιν/σης Καταλόγου</string>
+    <string name="sort_by">Ταξινόμηση κατά</string>
+    <string name="sort_by_colon">Ταξινόμηση κατά:</string>
+    <string name="sort_only_this">Μόνο αυτός ο φάκελος</string>
+    <string name="theme">Θέμα</string>
+    <string name="random">Τυχαία εμφάνιση</string>
+    <string name="random_summary">Ορίζει τυχαίο κύριο χρώμα κατά την εκκίνηση</string>
+    <string name="colorize">Χρωματισμός εικονιδίων</string>
+    <string name="colorize_summary">Ορίζει στατικό χρώμα εικονιδίων. Δεν παρακάμπτει την επιλογή χρώματος των εικονιδίων φακέλων.</string>
+    <string name="home">Αρχική σελίδα</string>
+    <string name="paste">Επικόλληση</string>
+    <string name="history">Ιστορικό</string>
+    <string name="copy">Αντιγραφή</string>
+    <string name="root_mode">Διαχειριστής root</string>
+    <string name="root_mode_summary">Μόνο για rooted συσκευές. Επιλέξτε το μόνο αν είστε σίγουροι.</string>
+    <string name="root_failure">Δεν επιτρέπεται η πρόσβαση root</string>
+    <string name="select_all">Επιλογή όλων</string>
+    <string name="delete">Διαγραφή</string>
+    <string name="set_as_home">Ορισμός ως αρχική σελίδα</string>
+    <string name="operation_not_supported">Η λειτουργία δεν υποστηρίζεται</string>
+
+    <!-- New -->
+    <!-- Array -->
+
+    <!-- UI -->
+    <!-- Theme -->
+    <string name="light">Φωτεινό Material</string>
+    <string name="dark">Σκοτεινό Material</string>
+    <string name="daytime">Ημερήσια</string>
+    <string name="black">Μαύρο (για OLED)</string>
+    <string name="system">Σύστημα (ακολουθεί το θέμα συστήματος)</string>
+    <!--Skin-->
+    <!--DirectorySortMode-->
+    <string name="foldersOnTop">Οι φάκελοι στην κορυφή</string>
+    <string name="filesOnTop">Τα αρχεία στην κορυφή</string>
+    <string name="none_on_top">Κανένα στην κορυφή</string>
+    <!--SortBy-->
+    <string name="sort_name">Όνομα</string>
+    <string name="lastModified">Τροποποίηση</string>
+    <string name="sort_size">Μέγεθος</string>
+    <string name="sort_relevance">Σχετικότητα</string>
+    <!--ListMode-->
+    <!--Folder-->
+    <string name="pick_a_file">Επιλέξτε ένα αρχείο</string>
+    <string name="pick_files">Επιλέξτε ένα ή περισσότερα αρχεία</string>
+    <string name="process_viewer">Επόπτης διεργασιών</string>
+    <string name="in_safe">Ανεπαρκής χώρος</string>
+    <string name="no_file_overwrite">Κανένα αρχείο δεν αντικαταστάθηκε</string>
+    <string name="skip">Παράβλεψη</string>
+    <string name="overwrite">Αντικατάσταση</string>
+    <string name="not_allowed">Δεν επιτρέπεται</string>
+    <string name="searching">Αναζήτηση %s</string>
+    <string name="done">Ολοκληρώθηκε</string>
+    <string name="set">Ορισμός</string>
+    <string name="enablerootmde">Ενεργοποίηση Λειτουργίας Root</string>
+    <string name="goback">Πίσω</string>
+    <string name="newfile">Νέο αρχείο</string>
+    <string name="no_files">Δεν υπάρχουν αρχεία</string>
+    <string name="used">χώρος σε χρήση</string>
+    <string name="used_by_others">Χρήση άλλων</string>
+    <string name="free">Ελεύθερα</string>
+    <string name="listview">Εμφάνιση σε λίστα</string>
+    <string name="gridview">Εμφάνιση σε πλέγμα</string>
+    <string name="permission">Άδειες</string>
+    <string name="hide">Απόκρυψη</string>
+    <string name="exit">Έξοδος</string>
+    <string name="doforall">Εκτέλεση για όλα τα στοιχεία</string>
+    <string name="gridcolumnno">Αριθμός στηλών στην εμφάνιση σε πλέγμα</string>
+    <string name="set_random">Οι αλλαγές θα εφαρμοστούν μετά την επανεκκίνηση της εφαρμογής</string>
+    <string name="authors">Δημιουργοί</string>
+    <string name="changelog">Αρχείο αλλαγών</string>
+    <string name="ok">ΟΚ</string>
+    <string name="ui">Διεπαφή</string>
+    <string name="general">Γενικά</string>
+    <string name="thumb_summary">Εμφάνιση εικονιδίων εφαρμογών και εικόνων</string>
+    <string name="thumb">Εμφάνιση προεπισκοπήσεων</string>
+    <string name="hidden">Εμφάνιση κρυφών αρχείων και φακέλων</string>
+    <string name="lastModifiedSummary">Εμφάνιση της ημ/νίας και ώρας τελευταίας τροποποίησης</string>
+    <string name="lastModifiedPref">Εμφάνιση τελευταίας τροποποίησης</string>
+    <string name="size_pref_summary">Εμφάνιση μεγέθους αρχείων και αριθμού αντικειμένων εντός των φακέλων</string>
+    <string name="size_pref">Εμφάνιση μεγεθών</string>
+    <string name="miscellaneous">Διάφορα</string>
+    <string name="root_pref_summary">Εμφάνιση αδειών αρχείων και φακέλων</string>
+    <string name="root_pref">Εμφάνιση αδειών</string>
+    <string name="about_amaze_file_manager_label">Περί του Amaze File Manager</string>
+    <string name="version">Έκδοση</string>
+    <string name="rate">Βαθμολογήστε την εφαρμογή</string>
+    <string name="feedback">Αποστολή εντυπώσεων</string>
+    <string name="hiddenfiles">Κρυφά αρχεία</string>
+    <string name="type">Τύπο</string>
+    <string name="root_directory">Root</string>
+    <string name="add_shortcut">Προσθήκη συντόμευσης</string>
+    <string name="unsaved_changes">Μη αποθηκευμένες αλλαγές</string>
+    <string name="unsaved_changes_description">Έχετε μη αποθηκευμένες αλλαγές. Θέλετε να τις αποθηκεύσετε πριν την έξοδο;</string>
+    <string name="saving">Αποθήκευση</string>
+    <string name="package_installer">Εγκαταστάτης Πακέτου</string>
+    <string name="view">Εμφάνιση</string>
+    <string name="install">Εγκατάσταση</string>
+    <string name="archive">Αρχειοθέτηση</string>
+    <string name="archive_text">Αυτό είναι ένα συμπιεσμένο αρχείο. Τι ενέργεια θέλετε να κάνετε;</string>
+    <string name="package_installer_text">Αυτό είναι ένα αρχείο εγκατάστασης. Τι ενέργεια θέλετε να κάνετε;</string>
+    <string name="xda_title">Νήμα XDA</string>
+    <string name="circular_images">Χρήση κυκλικών εικονιδίων για εικόνες και βίντεο</string>
+    <string name="circular_icons">Χρήση κυκλικών εικονιδίων</string>
+    <string name="follow_battery_saver_title">Ακολουθεί την εξοικονόμηση μπαταρίας</string>
+    <string name="follow_battery_saver_desc">Εάν επιλεγεί και η λειτουργία εξοικονόμησης μπαταρίας είναι ενεργή, το θέμα αλλάζει σε σκούρο θέμα.</string>
+    <string name="back_title">Πλοήγηση πίσω</string>
+    <string name="back_summary">Ενεργοποιεί κατ\' επιλογή πλοήγηση προς τα πίσω στην κορυφή της λίστας</string>
+    <string name="details">Λεπτομέρειες</string>
+    <string name="translators">Μεταφραστές</string>
+    <string name="german_translation_title">Γερμανικά</string>
+    <string name="italian_translation_title">Ιταλικά</string>
+    <string name="french_translation_title">Γαλλικά</string>
+    <string name="russian_translation_title">Ρωσικά</string>
+    <string name="spanish_translation_title">Ισπανικά</string>
+    <string name="basque_translation_title">Βασκικά</string>
+    <string name="chinese_translation_title">Κινέζικα</string>
+    <string name="serbian_translation_title">Σερβικά</string>
+    <string name="turkish_translation_title">Τουρκικά</string>
+    <string name="ukrainian_translation_title">Ουκρανικά</string>
+    <string name="portuguese_translation_title">Πορτογαλικά</string>
+    <string name="polish_translation_title">Πολωνέζικα</string>
+    <string name="korean_translation_title">Κορεάτικα</string>
+    <string name="greek_translation_title">Ελληνικά</string>
+    <string name="dutch_translation_title">Ολλανδικά</string>
+    <string name="romanian_translation_title">Ρουμάνικα</string>
+    <string name="vietnamese_translation_title">Βιετναμέζικα</string>
+    <string name="japanese_translation_title">Ιαπωνικά</string>
+    <string name="tamil_translation_title">Ταμιλικά</string>
+
+    <string name="zip_viewer">Διαχειριστής Zip</string>
+    <string name="warning">Προειδοποίηση</string>
+    <string name="donate">Δωρεά</string>
+    <string name="archive_extract_folder">Φάκελος εξαγωγής</string>
+    <string name="archive_summary">Τα συμπιεσμένα αρχεία θα αποσυμπιέζονται σε αυτόν το φάκελο. Η αρχική επιλογή είναι ο φάκελος στον οποίο βρίσκεται το αρχείο συμπίεσης.</string>
+    <string name="open_as">Άνοιγμα ως</string>
+    <string name="text">Κείμενο</string>
+    <string name="audio">Ήχος</string>
+    <string name="video">Βίντεο</string>
+    <string name="other">Άλλο</string>
+    <string name="image">Εικόνα</string>
+    <string name="contributors">Συντελεστές</string>
+    <string name="save_paths">Απομνημόνευση διαδρομών</string>
+    <string name="save_path_summary">Κατά την εκκίνηση, θα εμφανιστεί ο πιο πρόσφατα προβαλλόμενος φάκελος σε κάθε καρτέλα.</string>
+    <string name="select_intent">Επιλογή</string>
+    <string name="database">Βάση δεδομένων</string>
+    <string name="colored_navigation">Έγχρωμη μπάρα πλοήγησης</string>
+    <string name="colored_navigvation_sum">Αν θα είναι η μπάρα πλοήγησης του συστήματος χρωματισμένη σύμφωνα με το θέμα.</string>
+
+    <string name="color_title">Χρώμα</string>
+    <string name="color_summary">Ορίστε το χρώμα διαφόρων στοιχείων της διεπαφής χρήστη</string>
+    <string name="primary_color_title">Κύριο χρώμα (Αριστερή Καρτέλα)</string>
+    <string name="primary_color_summary">Ορισμός χρώματος σε μεγάλα στοιχεία Διεπαφής για την αριστερή καρτέλα</string>
+    <string name="accent_color_title">Δευτερεύον χρώμα</string>
+    <string name="accent_color_summary">Ορίστε το χρώμα του επιπλέοντος κουμπιού + και άλλων μικρών στοιχείων</string>
+    <string name="icon_color_title">Χρώμα εικονιδίων</string>
+    <string name="icon_color_summary">Ορίστε το χρώμα των εικονιδίων</string>
+    <string name="choose_color">Επιλέξτε χρώμα</string>
+    <string name="files">Αρχεία</string>
+    <string name="textreader">Αναγνώστης κειμένου</string>
+    <string name="databasereader">Αναγνώστης βάσεων δεδομένων</string>
+    <string name="show_dividers">Εμφάνιση διαχωριστικών γραμμών</string>
+    <string name="needs_access">Απαιτείται πρόσβαση εγγραφής</string>
+    <string name="smb_connection">Συνδέσεις SMB</string>
+    <string name="server_address">Διεύθυνση IP Διακομιστή</string>
+    <string name="username">Χρήστης</string>
+    <string name="password">Κωδικός</string>
+    <string name="anonymous">Ανώνυμος</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="folders">Φάκελοι</string>
+    <string name="folderfilecount">%1$d φάκελοι και %2$d αρχεία</string>
+    <string name="videos">Βίντεο</string>
+    <string name="apks">Apks</string>
+    <string name="documents">Έγγραφα</string>
+    <string name="images">Εικόνες</string>
+    <string name="clear">Καθαρισμός</string>
+    <string name="md5">MD5</string>
+    <string name="total">Σύνολο:</string>
+    <string name="calculating"> υπολογισμός </string>
+    <string name="sort">Ταξινόμηση</string>
+    <string name="ascending">Αύξουσα</string>
+    <string name="descending">Φθίνουσα</string>
+    <string name="default_string">Προεπιλογή</string>
+    <string name="doit">Κάντε το</string>
+    <string name="want_help"><u>Χρειάζεστε βοήθεια;</u></string>
+    <string name="quick">Γρήγορη Πρόσβαση</string>
+    <string name="recent">Πρόσφατα Αρχεία</string>
+    <string name="edit">Επεξεργασία</string>
+    <string name="find">Εύρεση στη σελίδα</string>
+    <string name="grant">Χορήγησε</string>
+    <string name="grantper">Χορήγησε άδεια</string>
+    <string name="grantfailed">Άδεια δεν εκχωρήθηκε</string>
+    <string name="grant_storage_permission">Η εφαρμογή χρειάζεται άδεια αποθήκευσης για να συνεχίσετε. Ακύρωση αυτού του διαλόγου θα τερματίσει την εφαρμογή.</string>
+    <string name="operation_unsuccesful">Λειτουργία Ανεπιτυχής</string>
+    <string name="creatingfile">Δημιουργία Αρχείου</string>
+    <string name="creatingfolder">Δημιουργία Φακέλου</string>
+    <string name="renaming">Μετονομασία</string>
+    <string name="cant_be_empty">%s δεν είναι δυνατό να είναι κενό</string>
+    <string name="ip">Διεύθυνση</string>
+    <string name="connection_name">Όνομα σύνδεσης</string>
+    <string name="no_device_found">Δεν βρέθηκε συσκευή</string>
+    <string name="path">Διαδρομή</string>
+    <string name="rename_bookmark">Επεξεργασία Σελιδοδείκτη</string>
+    <string name="cut">Αποκοπή</string>
+    <string name="search">Αναζητηση</string>
+    <string name="invalid_name">Μη έγκυρο όνομα</string>
+    <string name="search_hint">Γράψτε για αναζήτηση&amp;#8230;</string>
+    <string name="advanced_search">Σύνθετη Αναζήτηση</string>
+    <string name="regular_expression">Κανονική Έκφραση</string>
+    <string name="regular_expression_summary">Αναζήτηση χρησιμοποιώντας μια τύπου BASH κανονική έκφραση</string>
+    <string name="match_content">Ταίριασμα περιεχομένου</string>
+    <string name="match_content_summary">Αν οριστεί, η κανονική έκφραση θα ταιριάξει με ολόκληρο το όνομα του αρχείου,\n        θα αναζητήσει την εμφάνιση διαφορετικά.</string>
+    <string name="start_ftp">Έναρξη</string>
+    <string name="stop_ftp">Διακοπή</string>
+    <string name="ftp_status_running">Εκτελείται</string>
+    <string name="ftp_status_not_running">Δεν Εκτελείται</string>
+    <string name="ftp_no_wifi">Βεβαιωθείτε ότι είστε συνδεδεμένοι σε Wi-Fi</string>
+    <string name="domain">Τομέας</string>
+    <string name="smb_share">Κοινή χρήση διαδρομής</string>
+    <string name="invalid">Άκυρο %s</string>
+    <string name="ftp_notif_starting">Εκκίνηση του διακομιστή FTP</string>
+    <string name="ftp_notif_starting_title">Διακομιστής FTP</string>
+    <string name="ftp_notif_title">Αμέιζ διακομιστής FTP εκτελείτε</string>
+    <string name="ftp_notif_text">στο %s</string>
+    <string name="ftp_notif_stop_server">STOP</string>
+    <string name="ftp_port_edit_menu_title">Θύρα FTP</string>
+    <string name="ftp_port_change_success">Θύρα FTP άλλαξε με επιτυχία</string>
+    <string name="ftp_port_change_error_invalid">Μη έγκυρος επιλεγμένος αριθμός θύρας</string>
+    <string name="primary_two_title">Πρωτεύον Χρώμα (Δεξιά Καρτέλα)</string>
+    <string name="primary_two_summary">Ορισμός χρώματος σε μεγάλα στοιχεία UI για τη δεξιά καρτέλα</string>
+    <string name="support_development">Υποστήριξη Ανάπτυξης</string>
+    <string name="report_bugs_title">Αναφορά Σφαλμάτων</string>
+    <string name="source_title">Πηγαίος κώδικας</string>
+    <string name="source_summary">Δείτε τον πηγαίο κώδικα στο GitHub</string>
+    <string name="report_bugs_summary">Αναφέρετε σφάλματα ή ζητήστε νέα λειτουργία</string>
+    <string name="translate_title">Μετάφραση</string>
+    <string name="translate_summary">Μετάφραση του Amaze στη γλώσσα σας</string>
+    <string name="paypal_copy_message">Το PayPal ID αντιγράφηκε στο πρόχειρο</string>
+    <string name="searching_devices">Αναζήτηση συσκευών</string>
+    <string name="bookmark_lost">Δεν βρέθηκε σελιδοδείκτης, επαναδημιουργία&amp;#8230;</string>
+
+    <string name="share_limit">Αδύνατη η κοινή χρήση περισσότερων από 100 αρχείων</string>
+    <string name="otg_access">Επιλέξτε τη ρίζα της συσκευής OTG</string>
+    <string name="information">Πληροφορίες</string>
+    <!-- reference to file accessed date -->
+    <string name="accessed">Προσβάσιμη</string>
+    <!-- reference to file modified date -->
+    <string name="modified">Τροποποιήθηκε</string>
+
+    <string name="title">Τίτλος</string>
+    <string name="artist">Καλλιτέχνης</string>
+    <string name="album">Άλμπουμ</string>
+    <string name="year">Έτος</string>
+    <string name="duration">Διάρκεια</string>
+    <string name="comment">Σχόλιο</string>
+    <!-- reference to audio/video file -->
+    <string name="container">Περιεχόμενο</string>
+    <string name="codec">Κωδικοποιητής</string>
+    <string name="channels">Κανάλια</string>
+    <string name="sample_rate">Ρυθμός δείγματος</string>
+    <string name="bitrate">Ρυθμός δεδομένων</string>
+    <string name="dimensions">Διαστάσεις</string>
+    <string name="frame_rate">Ρυθμός Καρέ</string>
+    <string name="image_type">Τύπος εικόνας</string>
+    <string name="width">Πλάτος</string>
+    <string name="height">Ύψος</string>
+    <string name="date_modified">Ημ/νία Τροποποίησης</string>
+    <string name="software">Λογισμικό</string>
+    <string name="creator">Δημιουργός</string>
+    <string name="camera_brand">Μάρκα Κάμερας</string>
+    <string name="camera_model">Μοντέλο Κάμερας</string>
+    <string name="date_taken">Ημ/νία Λήψης</string>
+    <string name="exposure_time">Χρόνος έκθεσης</string>
+    <string name="aperture_value">Μέγεθος Διαφράγματος</string>
+    <string name="image_iso">Βαθμός Ταχύτητας ISO</string>
+    <string name="flash_fired">Με Φλας</string>
+    <string name="focal_length">Μήκος εστίασης</string>
+    <string name="subject">Θέμα</string>
+    <string name="author">Συντάκτης</string>
+    <string name="keywords">Λέξεις-κλειδιά</string>
+    <string name="producer">Παραγωγός</string>
+    <string name="created">Δημιουργήθηκε</string>
+    <string name="format">Μορφή</string>
+    <string name="pages">Αριθμός Σελίδων</string>
+    <!-- reference to a document file -->
+    <string name="optimized">Βελτιστοποιημένο</string>
+    <string name="security">Ασφάλεια</string>
+    <string name="paper_size">Μέγεθος Χαρτιού</string>
+
+    <!-- %s will be replaced with either copied or moved -->
+    <string name="copy_error">Ορισμένα αρχεία δεν ήταν επιτυχώς %s</string>
+    <string name="copied">αντιγράφηκε</string>
+    <string name="moved">μετακινήθηκε</string>
+    <string name="copy_complete">Αντιγραφή Ολοκληρώθηκε</string>
+    <string name="waiting_title">Αναμονή</string>
+    <string name="waiting_content">Αναμονή για ολοκλήρωση λειτουργίας</string>
+    <string name="extract_complete">Αποσυμπίεση επιτυχής</string>
+    <string name="compression_complete">Συμπίεση Επιτυχής</string>
+    <string name="compressing">Συμπιέζει</string>
+    <string name="cancelled">Ακυρώθηκε</string>
+    <!-- reference to - 'Written #bytes out of #bytes' in process viewer -->
+    <string name="written">Γράφτηκε</string>
+    <string name="out_of">από</string>
+    <!-- reference to - 'Processing file # of #' in process viewer -->
+    <string name="of">του</string>
+    <string name="processing_file">Επεξεργασία αρχείου</string>
+    <string name="current_speed">Τρέχουσα ταχύτητα</string>
+    <string name="smb_launch_error">Θα χρειαστεί να αντιγράψετε αυτό το αρχείο στο χώρο αποθήκευσης για να το ανοίξετε</string>
+    <string name="error_file_not_found">Σφάλμα: Αρχείο δεν βρέθηκε</string>
+    <string name="error_io">Σφάλμα εισόδου/εξόδου</string>
+    <string name="error_file_too_large">Σφάλμα: Αρχείο πολύ μεγάλο</string>
+    <string name="medium_text">Μεσαίο Κείμενο</string>
+    <string name="permission_read">Ανάγνωση</string>
+    <string name="permission_write">Εγγραφή</string>
+    <string name="permission_execute">Εκτέλεση</string>
+    <string name="permission_owner">Κάτοχος</string>
+    <string name="permission_group">Ομάδα</string>
+    <string name="permission_other">Άλλο</string>
+    <string name="clipboard_path_copy">Η διαδρομή αντιγράφτηκε</string>
+    <string name="service_timer">Χρόνος που πέρασε</string>
+    <string name="please_wait">Παρακαλώ περιμένετε</string>
+
+    <string name="cloud_connection">Σύνδεση Cloud</string>
+    <string name="cloud_connection_new">Νέα σύνδεση Cloud</string>
+    <string name="cloud_dropbox">Dropbox</string>
+    <string name="cloud_drive">Google Drive&amp;#8482;</string>
+    <string name="cloud_onedrive">OneDrive</string>
+    <string name="cloud_box">Box</string>
+    <string name="cloud_get">Αποκτήστε το Cloud plugin</string>
+    <!-- Reference to 'email address can't be empty' or 'Invalid e-mail address' -->
+
+    <string name="no_applications">Καμία εφαρμογή</string>
+    <string name="ftp_path">Κοινόχρηστη διαδρομή</string>
+    <string name="ftp_path_hint">Διαδρομή προς τη ρίζα του καταλόγου προς κοινή χρήση</string>
+    <string name="change">Αλλαγή</string>
+    <string name="unknown_error">Ούπς, κάτι πήγε στραβά!</string>
+
+    <string name="ftp_path_change_success">Η διαδρομή FTP άλλαξε επιτυχώς</string>
+    <string name="ftp_path_change_error_invalid">Λανθασμένη διαδρομή</string>
+    <string name="ftp_status_no_connection">Χωρίς σύνδεση</string>
+    <string name="ftp_status_secure_connection">Ασφαλής σύνδεση</string>
+    <string name="ftp_status_title">Κατάσταση</string>
+    <string name="ftp_port">Θύρα</string>
+    <string name="ftp_login">Σύνδεση</string>
+    <string name="field_empty">Το πεδίο δεν μπορεί να είναι κενό</string>
+    <string name="ftp_timeout">Χρονικό όριο αδράνειας</string>
+    <string name="ftp_seconds">Δευτερόλεπτα</string>
+    <string name="intellihide_toolbar_title">Γραμμή εργαλείων Intellihide</string>
+    <string name="intellihide_toolbar_summary">Αυτόματη απόκρυψη της γραμμής εργαλείων κατά την κύλιση</string>
+    <string name="hash_sha256">SHA-256</string>
+    <!-- references 'name/size/location/hash' copied to clipboard -->
+    <string name="properties_copied_clipboard">αντιγράφηκε στο πρόχειρο</string>
+    <string name="contributors_1_summary">Μετάφραση</string>
+    <string name="contributors_2_summary">Εικονίδιο και banners</string>
+    <string name="contributors_3_summary">Μηχανή Θεμάτων</string>
+    <string name="contributors_4_summary">Σκιά πίσω από το FAB</string>
+    <string name="contributors_5_summary">Εναλλαγή χρωμάτων κατά την σάρωση καρτελών</string>
+    <string name="contributors_6_summary">Διακομιστής FTP</string>
+    <string name="contributors_7_summary">Εκκίνηση ενός διαδραστικού κελύφους</string>
+    <string name="connection_exists">Υπάρχει ήδη σύνδεση</string>
+
+    <string name="crypt_encrypting">Κρυπτογράφηση</string>
+    <string name="crypt_decrypting">Αποκρυπτογράφηση</string>
+    <!-- references to 'Some files weren't successfully %s -->
+    <string name="crypt_encrypted">Κρυπτογραφημένο</string>
+    <string name="crypt_decrypted">Αποκρυπτογραφημένο</string>
+    <string name="crypt_encrypt">Κρυπτογράφηση</string>
+    <string name="crypt_decrypt">Αποκρυπτογράφηση</string>
+    <string name="operation_fail_following">Η λειτουργία απέτυχε για τα εξής αρχεία</string>
+    <string name="crypt_pref_master_password_title">Κύριος κωδικός πρόσβασης</string>
+    <string name="crypt_pref_master_password_summary">Ορίστε έναν κύριο κωδικό πρόσβασης για κρυπτογράφηση.\n         Αφήστε το κενό για αφαίρεση.</string>
+    <string name="crypt_pref_fingerprint_title">Δακτυλικό αποτύπωμα</string>
+    <string name="crypt_pref_fingerprint_summary">Χρήση δακτυλικού αποτυπώματος για την πιστοποίηση της κρυπτογράφησης</string>
+    <string name="crypt_fingerprint_no_permission">Τα δικαιώματα δακτυλικού αποτυπώματος λείπουν</string>
+    <string name="crypt_fingerprint_not_enrolled">Δεν έχει καταχωρηθεί δακτυλικό αποτύπωμα</string>
+    <string name="crypt_fingerprint_no_security">Δεν βρέθηκε ασφάλεια οθόνης κλειδώματος</string>
+    <string name="crypt_warning_key">Σας ενημερώνουμε ότι, όταν αλλάζετε το μοτίβο ασφαλείας σας από\nΡυθμίσεις συστήματος, δεν θα μπορείτε να αποκρυπτογραφήσετε αυτό το περιεχόμενο.</string>
+    <string name="warning_never_show">Να μην γίνει ενημέρωση ξανά</string>
+    <string name="warning_confirm">Κατανοητό</string>
+    <string name="crypt_encryption_fail">Αποτυχία κρυπτογράφησης</string>
+    <string name="crypt_decryption_fail">Αποτυχία αποκρυπτογράφησης</string>
+    <string name="crypt_decryption_fail_password">Λάθος κωδικός!</string>
+    <string name="crypt_fingerprint_authenticate">Αγγίξτε τον αισθητήρα για να συνεχίσετε</string>
+    <string name="authenticate_password">Εισαγωγή κωδικού πρόσβασης</string>
+
+    <string name="sidebar_preferences">Πλαϊνή μπάρα</string>
+    <string name="sidebar_quick_access_title">Γρήγορη πρόσβαση στην πλευρική μπάρα</string>
+    <string name="show_quick_access_pref_title">Εμφάνιση γρήγορων προσβάσεων</string>
+    <string name="show_quick_access_pref">Γρήγορες προσβάσεις</string>
+    <string name="directory">Κατάλογος</string>
+
+    <string name="sidebar_bookmarks_title">Σελιδοδείκτες πλευρικής μπάρας</string>
+    <string name="show_bookmarks_pref_title">Εμφάνιση σελιδοδεικτών</string>
+    <string name="show_bookmarks_pref">Σελιδοδείκτες</string>
+    <string name="create_bookmark">Δημιουργία σελιδοδείκτη</string>
+    <string name="edit_bookmark">Επεξεργασία σελιδοδείκτη</string>
+    <string name="question_delete_bookmark">Διαγραφή σελιδοδείκτη;</string>
+
+    <string name="cloud_error_plugin">Το πρόσθετο Amaze Cloud δεν βρέθηκε. Παρακαλώ κατεβάστε το από το Play Store.</string>
+    <string name="cloud_error_failed_restart">Απέτυχε να φορτώσει τη σύνδεση.\n         Παρακαλούμε ανοίξτε το Amaze Cloud μία φορά.</string>
+    <string name="cloud_remove">Θέλετε να καταργήσετε τη σύνδεση cloud;</string>
+    <string name="cloud_fail_authenticate">Απέτυχε ο έλεγχος ταυτότητας</string>
+    <string name="cloud_share_copied">Η κοινόχρηστη σύνδεση αντιγράφηκε στο πρόχειρο</string>
+    <string name="copy_low_memory">Η μνήμη εξαντλήθηκε. Ελευθερώστε μνήμη.</string>
+    <string name="cloud_token_lost">Το διακριτικό χάθηκε. Πραγματοποιήστε ξανά είσοδο</string>
+    <string name="monofont">Γραμματοσειρά Monospace</string>
+    <string name="showHeaders">Εμφάνιση κεφαλίδων</string>
+	
+	<!--FROM HERE ON STRINGS ARE EXCLUSIVELY USED IN plurals.xml-->
+	<string name="no_items">Κανένα στοιχείο</string>
+	<string name="item">Αντικείμενο</string>
+	<string name="items">Αντικείμενα</string>
+	
+	<string name="byte_singular">byte</string>
+	<string name="bytes">bytes</string>
+    <!-- end of plurals -->
+
+    <string name="no_name">Το αρχείο πρέπει να έχει ένα όνομα</string>
+    <string name="add_item">Προσθήκη στοιχείου</string>
+    <string name="failed_smb_decrypt_path">Απέτυχε η φόρτωση σύνδεσης SMB</string>
+    <string name="failed_cloud_new_connection">Αποτυχία προσθήκης νέας σύνδεσης Cloud</string>
+    <string name="failed_cloud_api_key">Απέτυχε ο έλεγχος ταυτότητας του Cloud plug-in</string>
+
+    <string name="local_inet_addr_error">Σφάλμα λήψης της τοπικής διεύθυνσης inet</string>
+    <string name="intent_save_as">Αποθήκευση ως&amp;#8230;</string>
+    <string name="go">Μετάβαση</string>
+    <string name="advanced">Προχωρημένες</string>
+    <string name="typeable_paths_title">Προσαρμοσμένες διαδρομές</string>
+    <string name="typeable_paths_summary">Πατήστε παρατεταμένα τη γραμμή διαδρομής για να πληκτ/σετε μια προσαρμοσμένη διαδρομή</string>
+    <string name="send_email_to">Στείλτε ένα e-mail σε</string>
+
+    <string name="text_editor">Ρυθμίσεις επεξεργαστή κειμένου</string>
+    <string name="preference_newstack_title">Άνοιγμα αρχείων ως νέα εργασία</string>
+    <string name="preference_newstack_summary">Σας επιτρέπει να ανοίγετε αρχεία σε ξεχωριστές εργασίες. Πρόσβαση τους από σύστημα οθόνη προσφάτων.</string>
+    <string name="developers">Προγραμματιστές</string>
+    <string name="no_bitcoin_app">Παρακαλώ εγκαταστήστε μια εφαρμογή Bitcoin Wallet</string>
+    <string name="channel_name_normal">Ειδοποιήσεις Amaze</string>
+    <string name="channel_description_normal">Ειδοποιήσεις του Amaze File Manager</string>
+    <string name="channel_name_ftp">Amaze Διακομιστής FTP</string>
+    <string name="channel_description_ftp">Ειδοποιήσεις διακομιστή FTP του Amaze File Manager</string>
+
+    <string name="processing">Επεξεργασία&amp;#8230;</string>
+    <string name="failed_no_connection">Αποτυχία φόρτωσης αρχείων. Ελέγξτε τη σύνδεσή σας.</string>
+
+    <string name="update">ΕΝΗΜΕΡΩΣΗ</string>
+	<string name="scp_connection">Σύνδεση SCP/SFTP</string>
+    <string name="ftp_connection">Σύνδεση FTP</string>
+    <string name="ftps_connection">Σύνδεση FTP μέσω SSL</string>
+    <string name="scp_port">Θύρα</string>
+    <string name="ssh_host_key_verification_prompt_title">Επαλήθευση Host</string>
+    <string name="ssh_select_pem_button">Ιδιωτικό κλειδί SSH</string>
+    <string name="ssh_pem_key_parse_error">Αδυναμία ανάγνωσης επιλεγμένου PEM: %s</string>
+    <string name="password_unchanged">(αμετάβλητο)</string>
+    <string name="ssh_authentication_failure_password">Αποτυχία σύνδεσης: Αδυναμία ελέγχου ταυτότητας με το όνομα χρήστη και τον κωδικό πρόσβασης.</string>
+    <string name="ssh_authentication_failure_key">Αποτυχία σύνδεσης: Δεν κατέστη δυνατή η πιστοποίηση με το όνομα χρήστη και το ιδιωτικό κλειδί.</string>
+    <string name="ssh_connect_failed">Αδυναμία σύνδεσης σε %1$s:%2$d: %3$s</string>
+    <string name="ssh_connect_failed_host_key_changed_title">ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Η ΑΝΑΓΝΩΡΙΣΗ ΤΟΥ HOST ΕΧΕΙ ΑΛΛΑΞΕΙ!</string>
+    <string name="ssh_key_prompt_passphrase">Εισάγετε τη φράση πρόσβασης του κλειδιού.</string>
+    <string name="add_shortcut_not_supported_by_launcher">Η δημιουργία συντομεύσεων δεν υποστηρίζεται από τον εκκινητή σας.</string>
+    
+    <string name="select_color_config">Επιλέξτε διαμόρφωση χρώματος</string>
+    <string name="customize">Προσαρμογή</string>
+    <string name="custom">Προσαρμοσμένη</string>
+    <string name="preselected_configs_title">Προεπιλεγμένες διαμορφώσεις</string>
+    <string name="orange">Πορτοκαλί</string>
+    <string name="blue">Μπλε</string>
+    <string name="green">Πράσινο</string>
+    <string name="password_no_match">Ο κωδικός δεν ταιριάζει</string>
+    <string name="deselect_all">Αποεπιλογή όλων</string>
+    <string name="filename">Όνομα αρχείου</string>
+    <string name="compress_file_suggest_zip_extension">Συνιστάται η χρήση \".zip\" ως επέκταση αρχείου.</string>
+    <string name="about_amaze">Διαχειριστής αρχείων σχεδιασμού υλικού για Android</string>
+    <string name="license">Άδεια</string>
+    <string name="libraries">Βιβλιοθήκες</string>
+    <string name="password_repeat">Επανάληψη κωδικού πρόσβασης</string>
+    <string name="create_file_suggest_txt_extension">Συνιστάται η χρήση \".txt\" ως επέκταση αρχείου.</string>
+    <string name="ssh_select_pem">Επιλογή ιδιωτικού κλειδιού για έλεγχο ταυτότητας</string>
+    <string name="ssh_key_invalid_passphrase">Άκυρη κωδική φράση κλειδιού.</string>
+    <string name="ssh_key_no_decoder_decrypt">Χωρίς έγκυρο αποκ/ποιητή για την αποκρυπ/φηση PEM.</string>
+    <string name="encryption_fail_copy">Απέτυχε η ενημέρωση της καταχώρησης κρυπτογράφησης στη βάση δεδομένων</string>
+    <string name="extracted">Αποσυμπιέστηκε</string>
+    <string name="compressed">Συμπιέστηκε</string>
+    <string name="processed">Επεξεργάστηκε</string>
+    <string name="no_obtainable_info">Δεν υπάρχουν πληροφορίες για το αρχείο αυτό</string>
+    <string name="reopen_from_source">Δεν είναι δυνατό, ανοίξτε ξανά από την τελευταία εφαρμογή</string>
+    <string name="no_file_error">Κάτι πήγε στραβά, δεν υπάρχει τίποτα για άνοιγμα</string>
+    <string name="file_too_long">Το αρχείο είναι πολύ μεγάλο και δεν μπορεί να επεξεργαστεί, ωστόσο μπορείτε να διαβάσετε τους πρώτους %d χαρακτήρες</string>
+    <string name="file_read_only">Το αρχείο που ανοίχτηκε είναι μόνο για ανάγνωση.</string>
+    <string name="got_it">Κατανοητό</string>
+    <string name="encrypt_file_save_as">Αποθήκευση κρυπτογραφημένου αρχείου ως&amp;#8230;</string>
+    <string name="encrypt_folder_save_as">Αποθήκευση κρυπτογραφημένου φακέλου ως&amp;#8230;</string>
+    <string name="encrypt_option_use_aze">Χρήση μορφής κρυπτογράφησης Amaze</string>
+    <string name="encrypt_file_must_end_with_aze">Τα κρυπτογραφημένα αρχεία πρέπει να χρησιμοποιούν \".aze\" ως επέκταση αρχείου.</string>
+    <string name="encrypt_file_must_end_with_aes">Τα κρυπτογραφημένα αρχεία πρέπει να χρησιμοποιούν \".aes\" ως επέκταση αρχείου.</string>
+    <string name="cannot_overwrite">Αδύνατη η αντικατάσταση αρχείου.</string>
+    <string name="saved_single_file">Το αρχείο αποθηκεύτηκε ως \'%s\'.</string>
+    <string name="saved_multi_files">%d αποθηκευμένα αρχεία.</string>
+    <string name="create_hidden_file_warn">Το αρχείο που δημιουργήθηκε θα είναι κρυφό στη λίστα αρχείων.</string>
+    <string name="grant_apkinstall_permission">Η εφαρμογή χρειάζεται άδεια για την εγκατάσταση εφαρμογών.</string>
+    <string name="time_remaining">Υπολειπόμενος χρόνος</string>
+    <string name="transfer_rate">Ρυθμός μεταφοράς</string>
+    <string name="unknown">άγνωστο</string>
+    <string name="multiple_invalid_archive_entries">Δεν είναι δυνατή η εξαγωγή ορισμένων αρχείων της αρχειοθήκης. Η αρχειοθήκη μπορεί να είναι κατεστραμμένη ή να προέρχεται από κακόβουλη πηγή.</string>
+    <string name="saf_otg_explanation">Τώρα θα μεταβείτε στο σύστημα αρχείων του Android για λόγους ασφαλείας. Παρακαλώ επιλέξτε τη συσκευή USB από τη λίστα στα αριστερά.</string>
+    <string name="donation_thanks">Σας ευχαριστούμε για τη δωρεά, αυτό μας δίνει κίνητρο! (:</string>
+    <string name="enable_marquee_filename">Ενεργοποίηση εφέ μαρκαρίσματος για ονόματα αρχείων</string>
+    <string name="archive_password_prompt">Παρακαλώ εισάγετε τον κωδικό αρχειοθήκης:</string>
+    <string name="cannot_extract_archive">Αδύνατη η εξαγωγή της αρχειοθήκης \"%s\": %s</string>
+    <string name="archive_unsupported_or_corrupt">Δεν είναι δυνατό το άνοιγμα της αρχειοθήκης \"%s\". Είτε δεν μπορεί να ανοίξει, είτε έχει καταστραφεί.</string>
+    <string name="close">Κλείσιμο</string>
+    <string name="bookmark_exists">Ο Σελιδοδείκτης υπάρχει</string>
+    <string name="hide_media">Απόκρυψη από προγράμματα περιήγησης πολυμέσων</string>
+    <string name="update_host_key">Ενημέρωση κλειδιού Host</string>
+    <string name="cancel_recommended">Ακύρωση (Συνιστάται)</string>
+    <string name="failed_install_apk">Απέτυχε η εγκατάσταση</string>
+
+    <!-- from https://android.googlesource.com/platform/frameworks/base/+/master/core/res/res/values/strings.xml -->
+    <!-- Storage description for internal shared storage. [CHAR LIMIT=NONE] -->
+    <string name="storage_internal">Εσωτερική αποθήκευση</string>
+    <!-- Storage description for a generic SD card. [CHAR LIMIT=NONE] -->
+    <string name="storage_sd_card">Κάρτα SD</string>
+    <string name="choose_folder">Επιλέξτε αυτό το φάκελο</string>
+    <string name="some_files_failed_invalid_operation">Ορισμένα αρχεία απέτυχαν λόγω μη έγκυρης λειτουργίας</string>
+    <string name="ftp_server_prompt_connect_to_network">Σύνδεση σε δίκτυο ή ενεργοποίηση AP</string>
+    <string name="ftp_server_open_settings">Άνοιγμα ρυθμίσεων</string>
+    <string name="move">Μετακίνηση</string>
+    <string name="select_save_location">Επιλέξτε θέση για αποθήκευση</string>
+    <string name="scp_default_path">Προεπιλεγμένη διαδρομή (προαιρετικά)</string>
+
+    <!-- error activity -->
+    <string name="sorry_string">Λυπάμαι, αυτό δεν έπρεπε να συμβεί.</string>
+    <string name="error_report_button_text">Αναφορά αυτού του σφάλματος μέσω e-mail</string>
+    <string name="error_report_button_telegram">Αναφέρετε αυτό το σφάλμα μέσω telegram</string>
+    <string name="copy_for_github">Αντιγραφή μορφοποιημένης αναφοράς</string>
+    <string name="error_report_open_issue_button_text">Αναφορά στο GitHub</string>
+    <string name="error_report_open_github_notice">Ελέγξτε αν υπάρχει ήδη κάποιο ζήτημα που συζητάται για την κατάρρευση σας.</string>
+    <string name="error_snackbar_message">Συγγνώμη, κάτι πήγε στραβά.</string>
+    <string name="error_snackbar_action">Αναφορά</string>
+    <string name="what_device_headline">Πληροφορίες:</string>
+    <string name="what_happened_headline">Τι συνέβη:</string>
+    <string name="your_comment">Το σχόλιό σας (στα Αγγλικά):</string>
+    <string name="error_details_headline">Λεπτομέρειες:</string>
+    <string name="app_ui_crash">Διεπ/Εφαρμ. κατέρρευσε</string>
+    <string name="error_report_title">Αναφορά σφάλματος</string>
+    <string name="crash_report_copied">Αντιγράφηκε η αναφορά κατάρρευσης στο πρόχειρο</string>
+    <string name="disableIpcSignature">Απενεργοποίηση ελέγχου υπογραφής IPC (Για παλαιούς διακομιστές SMBv1 - UNSAFE!)</string>
+    <string name="cannot_delete_file">Αδύνατη η διαγραφή αρχείου</string>
+    <string name="cannot_delete_file_with_reason">Αδύνατη η διαγραφή αρχείου - %s </string>
+    <string name="cannot_rename_file">Αδύνατη η μετονομασία αρχείου %s - %s</string>
+    <string name="cannot_read_directory">Αδύνατη η ανάγνωση του καταλόγου %s - %s</string>
+    <string name="just_once">Μια φορά μόνο</string>
+    <string name="always">Πάντα</string>
+    <string name="choose_different_app">Επιλογή διαφορετικής εφαρμογής</string>
+    <string name="clear_open_file">Εκκαθάριση cache</string>
+    <string name="clear_open_file_summary">Καθαρίζει τις επιλεγμένες προεπιλεγμένες εφαρμογές ανοίγματος αρχείων</string>
+    <string name="ftp_readonly">Πρόσβαση μόνο για ανάγνωση</string>
+    <string name="legacy_listing_title">Χρήση παλαιού καταλόγου για root</string>
+    <string name="legacy_listing_summary">Εάν είναι ενεργή, χρησιμοποιεί την παλαιά μέθοδο για τη λίστα αρχείων</string>
+    <string name="error_unsupported_v5_rar">Το αρχείο RAR \"%s\" είναι μη υποστηριζόμενο αρχείο RAR v5.</string>
+    <string name="ftp_prompt_restart_server">Θα χρειαστεί να επανεκκινήσετε το διακομιστή FTP για να τεθούν σε ισχύ οι αλλαγές.</string>
+    <string name="error_permission_denied">Απορριφθείσα άδεια</string>
+    <string name="error_archive_password_incorrect">Λάθος κωδικός πρόσβασης αρχείου.</string>
+    <string name="error_archive_cannot_extract">Δεν είναι δυνατή η εξαγωγή εγγραφής αρχείου \"%s\" σε \"%s\".</string>
+    <string name="drag_and_drop_preference">Επιλογή προτίμησης μεταφοράς και απόθεσης (Πειραματική)</string>
+    <string name="drag_to_move_copy">Αγγίξτε και σύρετε για να μετακινήσετε ή να αντιγράψετε αρχεία</string>
+    <string name="drag_to_select">Αγγίξτε και σύρετε για να επιλέξετε αρχεία</string>
+    <string name="disable">Απενεργοποίηση</string>
+    <string name="choose_operation">Επιλέξτε λειτουργία για εκτέλεση</string>
+    <string name="remember">Ενθύμηση την επόμενη φορά</string>
+    <string name="ftp_prompt_accept_first_start_saf_access_title">Παραχώρηση πρόσβασης SAF για διακομιστή FTP</string>
+    <string name="android_data_prompt_saf_access_title">Χορήγηση πρόσβασης SAF</string>
+    <string name="ftp_preference_saf_filesystem_title">Χρήση του παλαιού συστήματος αρχείων</string>
+    <string name="ftp_preference_saf_filesystem">Ενεργοποιήστε το για υποστήριξη της χρήσης εξωτερικού αποθηκευτικού χώρου της συσκευής σε νεότερες εκδόσεις Android</string>
+    <string name="ftp_server_fallback_path_reset_prompt">Η κοινόχρηστη διαδρομή του διακομιστή FTP είχε επαναφερθεί στον εσωτερικό αποθηκευτικό χώρο, καθώς επιστρέφετε στην παλαιότερη υλοποίηση του συστήματος αρχείων. Παρακαλούμε επιλέξτε μια νέα διαδρομή χρησιμοποιώντας το μενού στην επάνω δεξιά γωνία, όπως είναι απαραίτητο.</string>
+    <string name="ftp_server_reset_notify">Η κοινή διαδρομή του διακομιστή FTP είχε επαναφερθεί στον εσωτερικό αποθηκευτικό χώρο</string>
+    <string name="ftp_server_root_unavailable">Επιλέγετε μια διαδρομή που απαιτεί πρόσβαση root. Ενεργοποιήστε τον εξερευνητή root στις ρυθμίσεις εάν η συσκευή σας έχει root.</string>
+    <string name="compressed_explorer_fragment_error_open_uri">Σφάλμα ανοίγματος URI \"%s\" για ανάγνωση.</string>
+    <string name="error_empty_archive">\"%s\" είναι ένα άδειο αρχείο.</string>
+    <string name="error_bad_archive_without_info">\"%s\" είναι ένα κατεστραμμένο αρχείο.</string>
+    <string name="security_error">Αδύνατο το άνοιγμα του αρχείου με αυτήν την εφαρμογή</string>
+    <string name="cloud_drive_tooltip">Δημιουργήστε μια σύνδεση Google Drive™ για τη διαχείριση αρχείων από το Amaze File Manager.</string>
+    <string name="signin_with_google_title">Πιστοποίηση ταυτότητας για χρήση του Google Drive™</string>
+    <string name="show_system_apps">Εμφάνιση εφαρμ. συστήματος</string>
+    <string name="system_apps">Εφαρμογές συστήματος</string>
+    <string name="select_inverse">Επιλέξτε Αντίστροφα</string>
+    <string name="select_by_type">Επιλέξτε ανά τύπο</string>
+    <string name="select_by_date">Επιλέξτε ανά ημερ/νία</string>
+    <string name="select_similar">Επιλέξτε παρόμοια</string>
+    <string name="select_fill">Επιλέξτε πλήρωση</string>
+    <string name="error_fetching_google_play_product_list">Σφάλμα ανάκτησης λίστας προϊόντων από το Google Play.</string>
+    <string name="user_apps">Εφαρμογές χρήστη</string>
+    <string name="appearance">Εμφάνιση</string>
+    <string name="behavior">Συμπεριφορά</string>
+    <string name="appearance_summary">Προσαρμόστε το θέμα, τα χρώματα και την εμφάνιση του διαχειριστή αρχείων</string>
+    <string name="ui_summary">Ελέγξτε τις πληροφορίες που θα εμφανίζονται, προσαρμόστε την πλευρική γραμμή και αλλάξτε τις προτιμήσεις της Διεπαφής Χρήστη</string>
+    <string name="behavior_summary">Τροποποιήστε συμπεριφορές όπως η προηγμένη αναζήτηση και το αν θα ανοίγετε αρχεία ως νέα εργασία.</string>
+    <string name="security_summary">Ρύθμιση κωδικού πρόσβασης και κρυπτογράφησης</string>
+    <string name="backup_summary">Εξαγωγή/Εισαγωγή ρυθμίσεων Amaze</string>
+
+
+    <string name="pref_export">Εξαγωγή</string>
+    <string name="pref_export_summary">Εξαγωγή ρυθμίσεων</string>
+    <string name="pref_import">Εισαγωγή</string>
+    <string name="pref_import_summary">Εισαγωγή ρυθμίσεων</string>
+
+    <string name="quick_desc">Πρόσφατα προσβάσιμα αρχεία μέσω του Amaze</string>
+    <string name="recent_desc">Αρχεία που δημιουργήθηκαν ή τροποποιήθηκαν πρόσφατα</string>
+    <string name="error_cannot_find_way_open">Δεν ήταν δυνατή η εύρεση του τρόπου ανοίγματος του αρχείου</string>
+    <string name="error_cant_decompress_that_file">Δεν είναι δυνατή η επεξεργασία της αρχειοθήκης που ζητήθηκε</string>
+    <string name="analyse_storage">Ανάλυση Αποθήκευσης</string>
+    <string name="download">Λήψη</string>
+    <string name="wifip2p">Wi-Fi P2P</string>
+    <string name="amaze_utils_installed_alias">Σας ευχαριστούμε που εγκαταστήσατε το Amaze File Utilities. Σας ανακατευθύνουμε στην εφαρμογή.</string>
+    <string name="image_viewer">Amaze Image Viewer</string>
+    <string name="video_player">Amaze Video Player</string>
+    <string name="amaze_audio_player">Amaze Music Player</string>
+    <string name="pdf_viewer">Amaze Document Viewer</string>
+    <string name="docx_viewer">Amaze Document Viewer</string>
+    <string name="share_logs">Κοινή χρήση αρχείων καταγραφής</string>
+    <string name="share_logs_summary">Μοιραστείτε τα καταγεγραμμένα αρχεία καταγραφής μέσω email / telegram</string>
+    <string name="open_with_amaze">Άνοιγμα με Amaze</string>
+    <string name="confirmation">Επιβεβαίωση</string>
+    <string name="error_google_play_cannot_update_myself">Σύμφωνα με τις εντολές της πολιτικής του Google Play, οι εφαρμογές δεν επιτρέπεται να ενημερώνονται μόνες τους. Ενημερώστε την εφαρμογή από το Google Play.</string>
+    <string name="error_cannot_get_package_info">Δεν είναι δυνατή η λήψη πληροφοριών πακέτου από το αρχείο \"%s\". Είτε το καθορισμένο αρχείο δεν είναι APK, είτε το αρχείο πακέτου είναι κατεστραμμένο.</string>
+    <string name="preference_delete_confirmation">Επιβεβαίωση διαγραφής</string>
+    <string name="preference_delete_confirmation_summary">Ζητήστε επιβεβαίωση πριν διαγράψετε αρχεία. Η απενεργοποίηση αυτής της λειτουργίας αποθαρρύνεται ιδιαίτερα!</string>
+    <string name="protocol_ftps">Ασφαλές FTP</string>
+    <string name="unavailable">Μη διαθέσιμη</string>
+
+    <string name="exporting_failed">Η εξαγωγή απέτυχε: δεν ήταν δυνατή η εγγραφή του αρχείου αντιγράφων</string>
+    <string name="importing_failed">Η εισαγωγή απέτυχε: δεν μπόρεσε να διαβαστεί το αρχείο αντιγράφων</string>
+    <string name="importing_completed">Η εισαγωγή ολοκληρώθηκε</string>
+    <string name="invalid_backup_file">Άκυρο αρχείο αντιγράφων ασφαλείας</string>
+    <string name="import_failed_for">Η εισαγωγή απέτυχε για:</string>
+    <string name="cloud_error_fdroid">Το Amaze Cloud Plugin δεν υποστηρίζεται από την έκδοση F-Droid. Παρακαλούμε χρησιμοποιήστε την έκδοση του Play Store του Amaze.</string>
+    <string name="disable_player_intent_filters">Απενεργοποίηση φίλτρων πρόθεσης αναπαραγωγής</string>
+    <string name="disable_player_intent_filters_summary">Απενεργοποιεί τις ενσωματωμένες συσκευές αναπαραγωγής πολυμέσων του Amaze από τον επιλογέα αρχείων</string>
+    <string name="no_app_found_intent">Δεν βρέθηκε εφαρμογή για να χειριστεί αυτή την πρόθεση. Έχετε εγκαταστήσει το DocumentsUI;</string>
+    <string name="cloud_connection_credentials_cleared">Εκκαθάριση διαπιστευτηρίων σύνδεσης Cloud</string>
+    <string name="cloud_connection_credentials_cleared_msg">Δυστυχώς, δεν μπορέσαμε να μεταφέρουμε τα διαπιστευτήρια σύνδεσής σας στο cloud στο νέο σχήμα της βάσης δεδομένων και έπρεπε να τα αφαιρέσουμε από την εφαρμογή. Παρακαλούμε δημιουργήστε ξανά τη σύνδεση στο cloud.</string>
+    <string name="not_finding_what_you_re_looking_for">Δεν βρίσκετε αυτό που ψάχνετε\?</string>
+    <string name="try_deep_search">Δοκιμάστε τη βαθιά αναζήτηση!</string>
+    <string name="try_indexed_search">Δοκιμάστε την αναζήτηση με ευρετήριο!</string>
+    <string name="search_recent">Πρόσφατα</string>
+    <string name="results">Αποτελέσματα</string>
+    <string name="grant_notification_permission">Το Amaze χρειάζεται άδεια ειδοποίησης για να εμφανίζει την πρόοδο της λειτουργίας των αρχείων, καθώς και έναν εύχρηστο πίνακα για την εκκίνηση/διακοπή του διακομιστή FTP.</string>
+    <string name="error_unsupported_or_null_uri">Άκυρο, μη υποστηριζόμενο ή κανένα URI</string>
+    <string name="complete_paste_warning">Ολοκληρώστε πρώτα τη λειτουργία επικόλλησης</string>
+    <string name="same_dir_move_error">Ο φάκελος προορισμού και ο φάκελος προέλευσης δεν πρέπει να ταιριάζουν για μετακίνηση.</string>
+    <string name="checking_conflicts">Έλεγχος για διενέξεις</string>
+    <string name="same_dir_overwrite_error">Ο φάκελος προορισμού και ο φάκελος προέλευσης δεν πρέπει να ταιριάζουν για αντικατάσταση.</string>
+    <string name="not_found_enabled_webview">Δεν υπάρχει διαθέσιμο πρόγραμμα περιήγησης</string>
+    <string name="preference_language_title">Γλώσσα Εφαρμογής</string>
+    <string name="preference_language_dialog_title">Επιλογή Γλώσσας</string>
+    <string name="preference_language_system_default">Προεπιλογή Συστήματος</string>
+    <string name="error.listfile.smb.title">Αδυναμία φόρτωσης λίστας αρχείων SMB</string>
+    <string name="error.listfile.smb">Σφάλμα λίστας αρχείων σε %s: %s</string>
+    <string name="error.listfile.smb.noipcshare">Σφάλμα λίστας αρχείων στο %s - πιθανότατα ο διακομιστής SMB δεν επιτρέπει την ανώνυμη πρόσβαση κοινής χρήσης σε IPC$. Μπορείτε να δοκιμάσετε να καθορίσετε το όνομα της κοινής χρήσης απευθείας στις ρυθμίσεις σύνδεσης.</string>
+    <string name="trash_bin">Κάδος Απορριμμάτων</string>
+    <string name="delete_permanently_checkbox">Μόνιμη Διαγραφή</string>
+    <string name="restore">Επαναφορά</string>
+    <string name="restore_files">Επαναφορά Αρχείων</string>
+    <string name="restoring">Επαναφορά...</string>
+    <string name="trash_bin_retention_num_of_files_title">Διατήρηση βάσει αριθμού αρχείων</string>
+    <string name="trash_bin_retention_num_of_files_summary">Μέγιστα αρχεία που μπορεί να αποθηκεύσει ο κάδος</string>
+    <string name="trash_bin_retention_days_title">Διατήρηση κατά ημέρες</string>
+    <string name="trash_bin_retention_days_summary">Μέγιστες ημέρες για τις οποίες ο κάδος μπορεί να αποθηκεύσει ένα αρχείο</string>
+    <string name="trash_bin_retention_bytes_title">Διατήρηση ανά μέγεθος δεδομένων</string>
+    <string name="trash_bin_retention_bytes_summary">Μέγιστα δεδομένα (σε MB) που μπορεί να αποθηκεύσει ο κάδος</string>
+    <string name="trash_bin_cleanup_interval_title">Χρονικό διάστημα εκκαθάρισης</string>
+    <string name="trash_bin_cleanup_interval_summary">Χρονικό διάστημα αυτόματου καθαρισμού (ώρες)</string>
+    </resources>
+

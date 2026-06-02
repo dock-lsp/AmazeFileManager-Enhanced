@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Copyright (C) 2014 Arpit Khurana <arpitkh96@gmail.com>, Vishal Nehra <vishalmeham2@gmail.com>, Luca D'Amico (Luca91)
+
+    This file is part of Amaze File Manager.
+
+    Amaze File Manager is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <permission android:name="${applicationId}.permission.CONTROL_FTP_SERVER"
+        android:protectionLevel="dangerous" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES"
+        android:usesPermissionFlags="neverForLocation"
+        tools:targetApi="33" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="com.amaze.cloud.permission.ACCESS_PROVIDER" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+
+    <uses-feature android:name="android.software.leanback"
+        android:required="false" />
+
+    <application
+        android:name=".application.AppConfig"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        tools:replace="android:label"
+        android:label="@string/appbar_name"
+        android:requestLegacyExternalStorage="true"
+        android:banner="@drawable/about_header"
+        android:localeConfig="@xml/locales_config"
+        android:networkSecurityConfig="@xml/network_security_config">
+
+        <activity
+            android:exported="true"
+            android:label="@string/appbar_name"
+            android:launchMode="singleInstance"
+            android:name=".ui.activities.MainActivity"
+            android:theme="@style/appCompatBlack"
+            android:configChanges="uiMode"
+            android:windowSoftInputMode="adjustPan"
+           >
+
+            <intent-filter android:label="@string/appbar_name">
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+                <data android:mimeType="*/*" />
+                <category android:name="android.intent.category.OPENABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.RINGTONE_PICKER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <intent-filter tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+                <data android:mimeType="application/zip" />
+                <data android:mimeType="application/rar" />
+                <data android:mimeType="application/x-gzip" />
+                <data android:mimeType="application/x-rar-compressed"/>
+                <data android:mimeType="application/x-bzip2" />
+                <data android:mimeType="application/x-xz" />
+                <data android:mimeType="application/x-7z-compressed" />
+                <!--<category android:name="android.intent.category.OPENABLE" />-->
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="com.amaze.filemanager" />
+            </intent-filter>
+
+            <intent-filter android:label="@string/open_with_amaze">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" android:host="teamamaze.xyz" android:pathPrefix="/open_file" />
+            </intent-filter>
+
+            <intent-filter tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+                <data android:mimeType="resource/folder" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <intent-filter android:label="@string/intent_save_as">
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+
+            <meta-data android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
+
+        <activity
+            android:exported="true"
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:configChanges="orientation|screenSize|uiMode"
+            android:label="@string/setting"
+            android:name=".ui.activities.PreferencesActivity"
+            android:theme="@style/appCompatBlack">
+            <intent-filter>
+                <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:exported="true"
+            android:label="@string/textreader"
+            android:name=".ui.activities.texteditor.TextEditorActivity"
+            android:configChanges="uiMode"
+            android:theme="@style/appCompatBlack">
+            <intent-filter
+                tools:ignore="AppLinkUrlError"
+                android:label="Amaze Text Editor">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/*" />
+                <data android:mimeType="application/javascript" />
+                <data android:mimeType="application/json" />
+                <data android:mimeType="application/xml" />
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:exported="true"
+            android:label="@string/databasereader"
+            android:name=".ui.activities.DatabaseViewerActivity"
+            android:theme="@style/appCompatBlack"
+            android:configChanges="uiMode"
+            android:screenOrientation="locked">
+            <intent-filter
+                tools:ignore="AppLinkUrlError"
+                android:label="Amaze Database Reader">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="db/*" />
+            </intent-filter>
+
+        </activity>
+
+        <activity android:name=".ui.activities.AboutActivity"
+            android:theme="@style/aboutBlack"
+            android:configChanges="uiMode"
+            android:label="About"
+            />
+
+        <activity android:name=".ui.activities.LogViewerActivity"
+            android:theme="@style/appCompatBlack"
+            android:configChanges="uiMode"
+            android:label="@string/log_viewer_title"
+            />
+
+        <activity android:name=".crashreport.ErrorActivity"
+            android:theme="@style/appCompatBlack"
+            android:configChanges="uiMode"
+            android:label="Error"
+            />
+
+        <activity
+            android:name=".ui.activities.pdf.PdfViewerActivity"
+            android:exported="true"
+            android:label="@string/pdf_viewer"
+            android:theme="@style/appCompatBlack"
+            android:configChanges="orientation|screenSize|uiMode">
+            <intent-filter tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+                <data android:mimeType="application/pdf" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.activities.pdf.PdfEditorActivity"
+            android:exported="false"
+            android:label="@string/pdf_editor_title"
+            android:theme="@style/appCompatBlack"
+            android:configChanges="uiMode" />
+
+        <activity
+            android:name=".ui.activities.pdf.PdfAnnotationActivity"
+            android:exported="false"
+            android:label="@string/pdf_annotate"
+            android:theme="@style/appCompatBlack"
+            android:configChanges="uiMode" />
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+        <activity
+            android:name=".ui.activities.imageeditor.ImageEditorActivity"
+            android:exported="true"
+            android:label="@string/image_editor"
+            android:theme="@style/appCompatBlack"
+            android:configChanges="uiMode|orientation|screenSize">
+            <intent-filter
+                tools:ignore="AppLinkUrlError"
+                android:label="Amaze Image Editor">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/jpeg" />
+                <data android:mimeType="image/png" />
+                <data android:mimeType="image/webp" />
+                <data android:mimeType="image/gif" />
+            </intent-filter>
+            <intent-filter
+                android:label="Amaze Image Editor">
+                <action android:name="android.intent.action.EDIT"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.activities.mediaplayer.MediaPlayerActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|uiMode"
+            android:theme="@style/appCompatBlack"
+            android:label="@string/amaze_audio_player">
+            <intent-filter
+                android:label="@string/amaze_audio_player"
+                tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+                <data android:mimeType="audio/*" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+            </intent-filter>
+            <intent-filter
+                android:label="@string/video_player"
+                tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+                <data android:mimeType="video/*" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.activities.UtilitiesAliasActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:theme="@style/Custom.Dialog.Dark">
+        </activity>
+
+        <activity
+            android:name=".ui.activities.terminal.TerminalActivity"
+            android:exported="false"
+            android:label="@string/terminal"
+            android:theme="@style/appCompatBlack"
+            android:configChanges="orientation|screenSize|uiMode"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity-alias android:name="amazeutilsalias"
+            android:targetActivity=".ui.activities.UtilitiesAliasActivity"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter
+                android:label="@string/amaze_audio_player"
+                tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+                <data android:mimeType="audio/*" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+            </intent-filter>
+            <intent-filter
+                android:label="@string/video_player"
+                tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+                <data android:mimeType="video/*" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+            </intent-filter>
+            <intent-filter
+                android:label="@string/image_viewer"
+                tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+                <data android:mimeType="image/*" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+            </intent-filter>
+            <intent-filter
+                android:label="@string/docx_viewer"
+                tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+                <data android:mimeType="application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+            </intent-filter>
+            <intent-filter
+                android:label="@string/pdf_viewer"
+                tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+                <data android:mimeType="application/pdf" />
+                <data android:mimeType="application/vnd.ms-xpsdocument" />
+                <data android:mimeType="application/oxps" />
+                <data android:mimeType="application/vnd.comicbook+zip" />
+                <data android:mimeType="application/x-cbz" />
+                <data android:mimeType="application/epub+zip" />
+                <data android:mimeType="application/x-fictionbook" />
+                <data android:mimeType="application/x-mobipocket-ebook" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+            </intent-filter>
+        </activity-alias>
+
+        <service android:name=".asynchronous.services.ExtractService"
+            android:label="Extracting"
+            android:foregroundServiceType="dataSync" />
+
+        <service android:name=".asynchronous.services.ZipService"
+            android:label="Compressing"
+            android:foregroundServiceType="dataSync" />
+
+        <service android:name=".asynchronous.services.CopyService"
+            android:label="Copying"
+            android:foregroundServiceType="dataSync" />
+
+        <service android:name=".asynchronous.services.EncryptService"
+            android:label="@string/crypt_encrypting"
+            android:foregroundServiceType="dataSync" />
+
+        <service android:name=".asynchronous.services.DecryptService"
+            android:label="@string/crypt_decrypting"
+            android:foregroundServiceType="dataSync" />
+
+        <service
+            android:name=".asynchronous.services.ftp.FtpService"
+            android:enabled="true"
+            android:exported="true"
+            android:foregroundServiceType="dataSync"
+            android:permission="${applicationId}.permission.CONTROL_FTP_SERVER" />
+
+        <service android:name=".asynchronous.services.ftp.FtpTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_ftp_dark"
+            android:label="@string/ftp"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            tools:targetApi="24">
+            <intent-filter>
+                <action
+                    android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <service android:name=".asynchronous.services.mediaplayer.AudioPlayerService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback"
+            android:label="@string/amaze_audio_player" />
+
+        <service
+            android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+            android:enabled="false"
+            android:exported="false">
+            <meta-data
+                android:name="autoStoreLocales"
+                android:value="true" />
+        </service>
+
+        <receiver
+            android:name=".asynchronous.services.ftp.FtpReceiver"
+            android:exported="true"
+            android:permission="${applicationId}.permission.CONTROL_FTP_SERVER">
+            <intent-filter>
+                <action android:name="com.amaze.filemanager.services.ftpservice.FTPReceiver.ACTION_START_FTPSERVER" />
+                <action android:name="com.amaze.filemanager.services.ftpservice.FTPReceiver.ACTION_STOP_FTPSERVER" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+    </application>
+
+</manifest>

@@ -1,0 +1,91 @@
+<!--
+    Copyright (C) 2014 Arpit Khurana <arpitkh96@gmail.com>, Vishal Nehra <vishalmeham2@gmail.com>
+
+    This file is part of Amaze File Manager.
+
+    Amaze File Manager is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/textEditorReplaceBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:visibility="gone">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/textEditorReplaceBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/replace_hint"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/darker_gray"
+        app:layout_constraintEnd_toStartOf="@id/textEditorReplaceButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/regexCheckBox"
+        android:layout_marginEnd="8dp" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/textEditorReplaceButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/replace"
+        android:src="@drawable/ic_baseline_content_copy_24"
+        android:tint="@android:color/white"
+        app:layout_constraintEnd_toStartOf="@id/textEditorReplaceAllButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/regexCheckBox" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/textEditorReplaceAllButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/replace_all"
+        android:src="@drawable/ic_baseline_content_cut_24"
+        android:tint="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/regexCheckBox" />
+
+    <CheckBox
+        android:id="@+id/regexCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/regex"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textEditorReplaceBox"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <CheckBox
+        android:id="@+id/caseSensitiveCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/case_sensitive"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:checked="true"
+        app:layout_constraintStart_toEndOf="@id/regexCheckBox"
+        app:layout_constraintTop_toBottomOf="@id/textEditorReplaceBox"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

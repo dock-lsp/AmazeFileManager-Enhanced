@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Copyright (C) 2014-2026 Arpit Khurana <arpitkh96@gmail.com>, Vishal Nehra <vishalmeham2@gmail.com>
+
+    This file is part of Amaze File Manager.
+
+    Amaze File Manager is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_zoom_in"
+        android:title="@string/zoom_in"
+        android:icon="@drawable/ic_baseline_add_24"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_zoom_out"
+        android:title="@string/zoom_out"
+        android:icon="@drawable/ic_close_white_24dp"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_previous_page"
+        android:title="@string/previous_page"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_next_page"
+        android:title="@string/next_page"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_first_page"
+        android:title="@string/first_page"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_last_page"
+        android:title="@string/last_page"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_share"
+        android:title="@string/share"
+        android:icon="@drawable/ic_baseline_content_copy_24"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_edit"
+        android:title="@string/edit"
+        app:showAsAction="never" />
+
+</menu>

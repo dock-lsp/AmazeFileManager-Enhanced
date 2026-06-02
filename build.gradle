@@ -1,0 +1,141 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath libs.gradle
+        classpath libs.kotlin.gradle.plugin
+        classpath libs.easylauncher
+        classpath libs.jacoco.android.plugin
+        classpath libs.rust.android.gradle
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+plugins {
+    id "com.diffplug.spotless" version "6.25.0"
+    id "com.google.devtools.ksp" version "1.9.25-1.0.20" apply false
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+        maven { url "https://jcenter.bintray.com" }
+        maven { url "https://repository.liferay.com/nexus/content/repositories/public/"}
+    }
+    tasks.withType(Test).tap {
+        configureEach {
+            maxParallelForks = 16
+            maxHeapSize = "2g"
+            forkEvery = 8
+            failFast = true
+        }
+    }
+}
+
+spotless {
+    // update license header from first commit
+    // ratchetFrom='78b1a4cf3c0a9519be92ff8445f7dff2cd8722b1'
+    java {
+        licenseHeaderFile 'amaze.license.spotless.txt'
+        target '*/src/**/*.java'
+        googleJavaFormat('1.19.2')
+        removeUnusedImports() // removes any unused imports
+        importOrder 'java', 'javax', 'org', 'com', 'android', 'androidx', ''
+    }
+    kotlin {
+        licenseHeaderFile 'amaze.license.spotless.txt'
+        target '*/src/**/*.kt'
+        ktlint("1.1.1").setEditorConfigPath("$projectDir/.editorconfig")
+    }
+}
+
+configurations {
+    robo21
+    robo22
+    robo23
+    robo24
+    robo25
+    robo26
+    robo27
+    robo28
+    robo29
+    robo30
+    robo31
+    robo32
+    robo33
+    robo34
+}
+
+dependencies {
+    robo21 "org.robolectric:android-all-instrumented:5.0.2_r3-robolectric-r0-i4"
+    robo22 "org.robolectric:android-all-instrumented:5.1.1_r9-robolectric-r2-i4"
+    robo23 "org.robolectric:android-all-instrumented:6.0.1_r3-robolectric-r1-i4"
+    robo24 "org.robolectric:android-all-instrumented:7.0.0_r1-robolectric-r1-i4"
+    robo25 "org.robolectric:android-all-instrumented:7.1.0_r7-robolectric-r1-i4"
+    robo26 "org.robolectric:android-all-instrumented:8.0.0_r4-robolectric-r1-i4"
+    robo27 "org.robolectric:android-all-instrumented:8.1.0-robolectric-4611349-i4"
+    robo28 "org.robolectric:android-all-instrumented:9-robolectric-4913185-2-i4"
+    robo29 "org.robolectric:android-all-instrumented:10-robolectric-5803371-i4"
+    robo30 "org.robolectric:android-all-instrumented:11-robolectric-6757853-i4"
+    robo31 "org.robolectric:android-all-instrumented:12-robolectric-7732740-i4"
+    robo32 "org.robolectric:android-all-instrumented:12.1-robolectric-8229987-i4"
+    robo33 "org.robolectric:android-all-instrumented:13-robolectric-9030017-i4"
+    robo34 "org.robolectric:android-all-instrumented:14-robolectric-10818077-i4"
+}
+
+def robolectricDependencies = "${rootProject.layout.buildDirectory.get().asFile}/robolectric"
+
+tasks.register('fetchRobolectricDependencies', Copy) {
+    from configurations.robo21
+    from configurations.robo22
+    from configurations.robo23
+    from configurations.robo24
+    from configurations.robo25
+    from configurations.robo26
+    from configurations.robo27
+    from configurations.robo28
+    from configurations.robo29
+    from configurations.robo30
+    from configurations.robo31
+    from configurations.robo32
+    from configurations.robo33
+    from configurations.robo34
+    into robolectricDependencies
+}
+
+subprojects {
+    afterEvaluate {
+        if (project.plugins.hasPlugin("com.android.application") || project.plugins.hasPlugin("com.android.library")) {
+            android {
+                testOptions.unitTests.all {
+                    systemProperty 'robolectric.offline', 'true'
+                    systemProperty 'robolectric.dependency.dir', robolectricDependencies
+                }
+            }
+            tasks.withType(Test).configureEach {
+                it.dependsOn fetchRobolectricDependencies
+            }
+        }
+        dependencies {
+
+            if (project.hasProperty('kapt')) {
+                kapt 'javax.xml.bind:jaxb-api:2.3.1'
+                kapt 'com.sun.xml.bind:jaxb-core:2.3.0.1'
+                kapt 'com.sun.xml.bind:jaxb-impl:2.3.2'
+            }
+
+            annotationProcessor 'javax.xml.bind:jaxb-api:2.3.1'
+            annotationProcessor 'com.sun.xml.bind:jaxb-core:2.3.0.1'
+            annotationProcessor 'com.sun.xml.bind:jaxb-impl:2.3.2'
+        }
+    }
+
+}

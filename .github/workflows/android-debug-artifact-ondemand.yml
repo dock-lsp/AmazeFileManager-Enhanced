@@ -1,0 +1,117 @@
+name: Android Debug artifact ondemand
+
+on:
+  pull_request:
+    types: [opened]
+  issue_comment:
+    types: [created]
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    if: github.event.comment.body == 'Build test apk' && (github.actor == 'VishalNehra' || github.actor == 'TranceLove' || github.actor == 'EmmanuelMess' || github.actor == 'VishnuSanal')
+    steps:
+      - name: Acknowledge the request with thumbs up reaction
+        uses: peter-evans/create-or-update-comment@v5
+        with:
+          comment-id: ${{ github.event.comment.id }}
+          reactions: '+1'
+      - name: Github API Request
+        id: request
+        uses: octokit/request-action@v3
+        with:
+          route: ${{ github.event.issue.pull_request.url }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get PR informations
+        id: pr_data
+        run: |
+          echo "::set-output name=repo_name::${{ fromJson(steps.request.outputs.data).head.repo.full_name }}"
+          echo "::set-output name=repo_clone_url::${{ fromJson(steps.request.outputs.data).head.repo.clone_url }}"
+          echo "::set-output name=repo_ssh_url::${{ fromJson(steps.request.outputs.data).head.repo.ssh_url }}"
+      - name: Checkout PR Branch
+        uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{fromJson(steps.request.outputs.data).head.repo.full_name}}
+          ref: ${{fromJson(steps.request.outputs.data).head.ref}}
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: "temurin"
+          java-version: 17
+      - name: Set up NDK
+        uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: r28c
+          link-to-sdk: true
+          local-cache: true
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+      - name: Cache Rust dependencies
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            file_operations/target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+      - name: Setup Rust for Android
+        run: |
+          cd file_operations
+          chmod +x setup_rust_android.sh
+          ./setup_rust_android.sh
+      - name: Verify Rust setup
+        run: |
+          cd file_operations
+          echo "🔍 Verifying Rust Android targets..."
+          rustup target list --installed | grep android || echo "No Android targets found"
+          echo "🔍 Verifying cargo configuration..."
+          if [ -f .cargo/config.toml ]; then
+            echo "✅ .cargo/config.toml exists"
+          else
+            echo "❌ .cargo/config.toml missing"
+            exit 1
+          fi
+      - name: Build with Gradle
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          arguments: assembleDebug --stacktrace
+      - name: Upload fdroid artifact
+        uses: actions/upload-artifact@v7
+        id: artifact-upload-fdroid
+        with:
+          name: Amaze-Fdroid-debug
+          path: app/build/outputs/apk/fdroid/debug/app-fdroid-debug.apk
+          if-no-files-found: error
+      - name: Upload play artifact
+        uses: actions/upload-artifact@v7
+        id: artifact-upload-play
+        with:
+          name: Amaze-Play-debug
+          path: app/build/outputs/apk/play/debug/app-play-debug.apk
+          if-no-files-found: error
+      - name: Get the PR number
+        id: find-pr-id
+        run: |
+          PR_NUMBER=$(jq --raw-output .issue.number "$GITHUB_EVENT_PATH")
+
+          echo "PR_Number: $PR_NUMBER"
+          echo "PR_NUMBER=$PR_NUMBER" >> "$GITHUB_OUTPUT"
+      - name: Notify the user with a comment once the APK is uploaded
+        uses: peter-evans/create-or-update-comment@v5
+        with:
+          issue-number: ${{ steps.find-pr-id.outputs.PR_NUMBER }}
+          body: |
+            Requested APKs have been built. Please find them from the links below.
+            
+            FDroid Flavour: ${{ steps.artifact-upload-fdroid.outputs.artifact-url }}
+            Play Flavour: ${{ steps.artifact-upload-play.outputs.artifact-url }}
+            
+            PS: you should be logged in to access the artifacts.
