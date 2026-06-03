@@ -41,39 +41,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <include
-            layout="@layout/text_editor_replace_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <!-- Git Status Bar -->
-    <LinearLayout
-        android:id="@+id/gitStatusBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="4dp"
-        android:background="?attr/colorSurface"
-        android:visibility="gone">
-
-        <View
-            android:id="@+id/gitStatusIndicator"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/circle_shape" />
-
-        <TextView
-            android:id="@+id/gitStatusView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="?android:attr/textColorSecondary" />
-
     </LinearLayout>
 
     <HorizontalScrollView
