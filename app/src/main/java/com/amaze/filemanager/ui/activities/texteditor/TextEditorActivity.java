@@ -197,14 +197,14 @@ public class TextEditorActivity extends ThemedActivity
       mainTextView.setTextColor(Utils.getColor(this, R.color.primary_white));
       if (lineNumberView != null) {
         lineNumberView.setBackgroundColor(Utils.getColor(this, R.color.holo_dark_action_mode));
-        lineNumberView.setTextColor(Utils.getColor(this, R.color.primary_grey_500));
+        lineNumberView.setTextColor(Utils.getColor(this, R.color.grey));
       }
     } else if (getAppTheme().equals(AppTheme.BLACK)) {
       mainTextView.setBackgroundColor(Utils.getColor(this, android.R.color.black));
       mainTextView.setTextColor(Utils.getColor(this, R.color.primary_white));
       if (lineNumberView != null) {
         lineNumberView.setBackgroundColor(Utils.getColor(this, android.R.color.black));
-        lineNumberView.setTextColor(Utils.getColor(this, R.color.primary_grey_500));
+        lineNumberView.setTextColor(Utils.getColor(this, R.color.grey));
       }
     } else {
       mainTextView.setTextColor(Utils.getColor(this, R.color.primary_grey_900));
