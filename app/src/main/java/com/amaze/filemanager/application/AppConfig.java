@@ -22,7 +22,11 @@ package com.amaze.filemanager.application;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
+import java.util.Locale;
 import java.util.concurrent.Callable;
+
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.os.LocaleListCompat;
 
 import org.acra.ACRA;
 import org.acra.attachment.DefaultAttachmentProvider;
@@ -60,10 +64,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.os.LocaleListCompat;
 import androidx.preference.PreferenceManager;
-
-import java.util.Locale;
 
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -99,12 +100,10 @@ public class AppConfig extends GlideApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    // 设置默认语言为简体中文
+    AppCompatDelegate.setApplicationLocales(LocaleListCompat.create(Locale.CHINA));
     AppCompatDelegate.setCompatVectorFromResourcesEnabled(
         true); // selector in srcCompat isn't supported without this
-    
-    // 设置默认语言为中文（简体中文）
-    AppCompatDelegate.setApplicationLocales(LocaleListCompat.create(Locale.CHINA));
-    
     instance = this;
 
     CustomSshJConfig.init();

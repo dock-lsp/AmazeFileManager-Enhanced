@@ -30,8 +30,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.amaze.filemanager.R;
@@ -55,14 +53,10 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.Editable;
-import android.text.Spannable;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.BackgroundColorSpan;
-import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -70,12 +64,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
@@ -86,21 +75,11 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
-/**
- * Enhanced Text Editor Activity with syntax highlighting, code folding, Git integration,
- * line numbers, auto-indent, bracket matching, and enhanced search/replace.
- */
 public class TextEditorActivity extends ThemedActivity
     implements TextWatcher, View.OnClickListener {
 
   public AppCompatEditText mainTextView;
   public AppCompatEditText searchEditText;
-  private TextView lineNumberView;
-  private TextView gitStatusView;
-  private View gitStatusIndicator;
-  private HorizontalScrollView horizontalScrollView;
-  private LinearLayout editorContainer;
-  
   private Typeface inputTypefaceDefault;
   private Typeface inputTypefaceMono;
   private androidx.appcompat.widget.Toolbar toolbar;
@@ -113,31 +92,12 @@ public class TextEditorActivity extends ThemedActivity
   private static final String KEY_MONOFONT = "monofont";
 
   private ConstraintLayout searchViewLayout;
-  private ConstraintLayout replaceViewLayout;
-  private AppCompatEditText replaceEditText;
-  private AppCompatImageButton replaceButton;
-  private AppCompatImageButton replaceAllButton;
-  private CheckBox regexCheckBox;
-  private CheckBox caseSensitiveCheckBox;
-  
   public AppCompatImageButton upButton;
   public AppCompatImageButton downButton;
 
   private Snackbar loadingSnackbar;
 
   private TextEditorActivityViewModel viewModel;
-  
-  // Enhanced features
-  private SyntaxHighlighter syntaxHighlighter;
-  private CodeFoldingManager codeFoldingManager;
-  private GitIntegration.GitFileStatus gitFileStatus;
-  private Handler highlightHandler;
-  private Runnable highlightRunnable;
-  private static final long HIGHLIGHT_DELAY_MS = 300;
-  
-  // Bracket matching
-  private int lastBracketMatchStart = -1;
-  private int lastBracketMatchEnd = -1;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -147,49 +107,28 @@ public class TextEditorActivity extends ThemedActivity
     setSupportActionBar(toolbar);
 
     viewModel = new ViewModelProvider(this).get(TextEditorActivityViewModel.class);
-    highlightHandler = new Handler(Looper.getMainLooper());
 
     searchViewLayout = findViewById(R.id.textEditorSearchBar);
-    replaceViewLayout = findViewById(R.id.textEditorReplaceBar);
-    
+
     searchViewLayout.setBackgroundColor(getPrimary());
-    if (replaceViewLayout != null) {
-      replaceViewLayout.setBackgroundColor(getPrimary());
-    }
 
     searchEditText = searchViewLayout.findViewById(R.id.textEditorSearchBox);
     upButton = searchViewLayout.findViewById(R.id.textEditorSearchPrevButton);
     downButton = searchViewLayout.findViewById(R.id.textEditorSearchNextButton);
-    
-    // Replace UI
-    if (replaceViewLayout != null) {
-      replaceEditText = replaceViewLayout.findViewById(R.id.textEditorReplaceBox);
-      replaceButton = replaceViewLayout.findViewById(R.id.textEditorReplaceButton);
-      replaceAllButton = replaceViewLayout.findViewById(R.id.textEditorReplaceAllButton);
-      regexCheckBox = replaceViewLayout.findViewById(R.id.regexCheckBox);
-      caseSensitiveCheckBox = replaceViewLayout.findViewById(R.id.caseSensitiveCheckBox);
-      
-      replaceButton.setOnClickListener(v -> performReplace());
-      replaceAllButton.setOnClickListener(v -> performReplaceAll());
-    }
 
     searchEditText.addTextChangedListener(this);
 
     upButton.setOnClickListener(this);
+    // upButton.setEnabled(false);
     downButton.setOnClickListener(this);
+    // downButton.setEnabled(false);
 
     if (getSupportActionBar() != null) {
       boolean useNewStack = getBoolean(PREFERENCE_TEXTEDITOR_NEWSTACK);
       getSupportActionBar().setDisplayHomeAsUpEnabled(!useNewStack);
     }
-    
     mainTextView = findViewById(R.id.textEditorMainEditText);
     scrollView = findViewById(R.id.textEditorScrollView);
-    lineNumberView = findViewById(R.id.lineNumberView);
-    gitStatusView = findViewById(R.id.gitStatusView);
-    gitStatusIndicator = findViewById(R.id.gitStatusIndicator);
-    horizontalScrollView = findViewById(R.id.horizontalScrollView);
-    editorContainer = findViewById(R.id.editorContainer);
 
     final Uri uri = getIntent().getData();
     if (uri != null) {
@@ -208,34 +147,15 @@ public class TextEditorActivity extends ThemedActivity
     }
 
     mainTextView.addTextChangedListener(this);
-    
-    // Setup enhanced features
-    setupSyntaxHighlighter();
-    setupCodeFolding();
-    setupLineNumbers();
-    setupBracketMatching();
-    setupGitIntegration();
 
     if (getAppTheme().equals(AppTheme.DARK)) {
       mainTextView.setBackgroundColor(Utils.getColor(this, R.color.holo_dark_action_mode));
       mainTextView.setTextColor(Utils.getColor(this, R.color.primary_white));
-      if (lineNumberView != null) {
-        lineNumberView.setBackgroundColor(Utils.getColor(this, R.color.holo_dark_action_mode));
-        lineNumberView.setTextColor(Utils.getColor(this, R.color.primary_grey_500));
-      }
     } else if (getAppTheme().equals(AppTheme.BLACK)) {
       mainTextView.setBackgroundColor(Utils.getColor(this, android.R.color.black));
       mainTextView.setTextColor(Utils.getColor(this, R.color.primary_white));
-      if (lineNumberView != null) {
-        lineNumberView.setBackgroundColor(Utils.getColor(this, android.R.color.black));
-        lineNumberView.setTextColor(Utils.getColor(this, R.color.primary_grey_500));
-      }
     } else {
       mainTextView.setTextColor(Utils.getColor(this, R.color.primary_grey_900));
-      if (lineNumberView != null) {
-        lineNumberView.setBackgroundColor(Utils.getColor(this, R.color.primary_grey_100));
-        lineNumberView.setTextColor(Utils.getColor(this, R.color.primary_grey_600));
-      }
     }
 
     if (mainTextView.getTypeface() == null) {
@@ -257,219 +177,6 @@ public class TextEditorActivity extends ThemedActivity
       load(this);
     }
     initStatusBarResources(findViewById(R.id.textEditorRootView));
-  }
-
-  /**
-   * Setup syntax highlighter based on file extension
-   */
-  private void setupSyntaxHighlighter() {
-    syntaxHighlighter = new SyntaxHighlighter();
-    
-    EditableFileAbstraction file = viewModel.getFile();
-    if (file != null && file.name != null) {
-      syntaxHighlighter.setLanguage(file.name);
-    }
-    
-    // Apply initial highlighting after a delay
-    highlightRunnable = () -> {
-      if (mainTextView.getText() != null && syntaxHighlighter.isHighlightingAvailable()) {
-        syntaxHighlighter.applyHighlightingToEditable(mainTextView.getText());
-      }
-    };
-  }
-
-  /**
-   * Setup code folding manager
-   */
-  private void setupCodeFolding() {
-    codeFoldingManager = new CodeFoldingManager();
-    EditableFileAbstraction file = viewModel.getFile();
-    if (file != null && file.name != null) {
-      codeFoldingManager.setLanguage(SyntaxHighlighter.detectLanguage(file.name));
-    }
-  }
-
-  /**
-   * Setup line number display
-   */
-  private void setupLineNumbers() {
-    if (lineNumberView == null) return;
-    
-    lineNumberView.setTypeface(Typeface.MONOSPACE);
-    lineNumberView.setTextSize(12);
-    
-    scrollView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-      updateLineNumbers();
-    });
-  }
-
-  /**
-   * Update line number display
-   */
-  private void updateLineNumbers() {
-    if (lineNumberView == null || mainTextView.getText() == null) return;
-    
-    String text = mainTextView.getText().toString();
-    int lineCount = countLines(text);
-    
-    StringBuilder lineNumbers = new StringBuilder();
-    for (int i = 1; i <= lineCount; i++) {
-      lineNumbers.append(i).append("\n");
-    }
-    
-    lineNumberView.setText(lineNumbers.toString());
-  }
-
-  /**
-   * Count lines in text
-   */
-  private int countLines(String text) {
-    if (text == null || text.isEmpty()) return 1;
-    int count = 1;
-    for (int i = 0; i < text.length(); i++) {
-      if (text.charAt(i) == '\n') count++;
-    }
-    return count;
-  }
-
-  /**
-   * Setup bracket matching
-   */
-  private void setupBracketMatching() {
-    mainTextView.setOnClickListener(v -> {
-      int cursorPosition = mainTextView.getSelectionStart();
-      if (cursorPosition >= 0 && mainTextView.getText() != null) {
-        highlightMatchingBracket(cursorPosition);
-      }
-    });
-  }
-
-  /**
-   * Highlight matching bracket
-   */
-  private void highlightMatchingBracket(int cursorPosition) {
-    if (syntaxHighlighter == null || mainTextView.getText() == null) return;
-    
-    // Remove previous bracket highlights
-    if (lastBracketMatchStart >= 0) {
-      BackgroundColorSpan[] spans = mainTextView.getText().getSpans(
-          lastBracketMatchStart, lastBracketMatchStart + 1, BackgroundColorSpan.class);
-      for (BackgroundColorSpan span : spans) {
-        mainTextView.getText().removeSpan(span);
-      }
-    }
-    if (lastBracketMatchEnd >= 0) {
-      BackgroundColorSpan[] spans = mainTextView.getText().getSpans(
-          lastBracketMatchEnd, lastBracketMatchEnd + 1, BackgroundColorSpan.class);
-      for (BackgroundColorSpan span : spans) {
-        mainTextView.getText().removeSpan(span);
-      }
-    }
-    
-    // Find and highlight matching bracket
-    int matchPos = syntaxHighlighter.highlightMatchingBracket(mainTextView.getText(), cursorPosition);
-    
-    if (matchPos >= 0) {
-      lastBracketMatchStart = cursorPosition;
-      lastBracketMatchEnd = matchPos;
-    }
-  }
-
-  /**
-   * Setup Git integration
-   */
-  private void setupGitIntegration() {
-    EditableFileAbstraction file = viewModel.getFile();
-    if (file == null || file.scheme != FILE) return;
-    
-    File javaFile = file.hybridFileParcelable.getFile();
-    if (javaFile == null) return;
-    
-    // Check if file is in Git repository
-    if (GitIntegration.isInGitRepository(javaFile)) {
-      // Load Git status
-      GitIntegration.getFileStatus(javaFile, new GitIntegration.GitCallback<GitIntegration.GitFileStatus>() {
-        @Override
-        public void onResult(GitIntegration.GitFileStatus status) {
-          gitFileStatus = status;
-          updateGitStatusUI();
-        }
-        
-        @Override
-        public void onError(String error) {
-          // Git not available or error
-          if (gitStatusView != null) {
-            gitStatusView.setVisibility(View.GONE);
-          }
-          if (gitStatusIndicator != null) {
-            gitStatusIndicator.setVisibility(View.GONE);
-          }
-        }
-      });
-      
-      // Load current branch
-      GitIntegration.getCurrentBranch(javaFile, new GitIntegration.GitCallback<String>() {
-        @Override
-        public void onResult(String branch) {
-          if (branch != null && gitStatusView != null) {
-            String currentText = gitStatusView.getText().toString();
-            gitStatusView.setText(branch + " | " + currentText);
-          }
-        }
-        
-        @Override
-        public void onError(String error) {
-          // Ignore
-        }
-      });
-    } else {
-      if (gitStatusView != null) {
-        gitStatusView.setVisibility(View.GONE);
-      }
-      if (gitStatusIndicator != null) {
-        gitStatusIndicator.setVisibility(View.GONE);
-      }
-    }
-  }
-
-  /**
-   * Update Git status UI
-   */
-  private void updateGitStatusUI() {
-    if (gitFileStatus == null || gitStatusView == null) return;
-    
-    GitIntegration.FileStatus status = gitFileStatus.getEffectiveStatus();
-    String statusText;
-    
-    switch (status) {
-      case MODIFIED:
-        statusText = getString(R.string.git_modified);
-        break;
-      case ADDED:
-        statusText = getString(R.string.git_added);
-        break;
-      case DELETED:
-        statusText = getString(R.string.git_deleted);
-        break;
-      case UNTRACKED:
-        statusText = getString(R.string.git_untracked);
-        break;
-      case RENAMED:
-        statusText = getString(R.string.git_renamed);
-        break;
-      case UNMODIFIED:
-        statusText = getString(R.string.git_unmodified);
-        break;
-      default:
-        statusText = status.name();
-    }
-    
-    gitStatusView.setText(statusText);
-    gitStatusView.setTextColor(status.getColor());
-    
-    if (gitStatusIndicator != null) {
-      gitStatusIndicator.setBackgroundColor(status.getColor());
-    }
   }
 
   @Override
@@ -577,16 +284,6 @@ public class TextEditorActivity extends ThemedActivity
 
     menu.findItem(R.id.save).setVisible(viewModel.getModified());
     menu.findItem(R.id.monofont).setChecked(inputTypefaceMono.equals(mainTextView.getTypeface()));
-    
-    // Update syntax highlighting toggle
-    MenuItem highlightItem = menu.findItem(R.id.syntax_highlight);
-    if (highlightItem != null) {
-      highlightItem.setChecked(syntaxHighlighter != null && 
-          syntaxHighlighter.isHighlightingAvailable());
-      highlightItem.setEnabled(syntaxHighlighter != null && 
-          syntaxHighlighter.getCurrentLanguage() != SyntaxHighlighter.Language.UNKNOWN);
-    }
-    
     return super.onPrepareOptionsMenu(menu);
   }
 
@@ -634,278 +331,15 @@ public class TextEditorActivity extends ThemedActivity
         Toast.makeText(this, R.string.reopen_from_source, Toast.LENGTH_SHORT).show();
       }
     } else if (item.getItemId() == R.id.find) {
-      if (searchViewLayout.isShown()) {
-        hideSearchView();
-      } else {
-        revealSearchView();
-      }
-    } else if (item.getItemId() == R.id.replace) {
-      if (replaceViewLayout != null) {
-        if (replaceViewLayout.isShown()) {
-          hideReplaceView();
-        } else {
-          revealReplaceView();
-        }
-      }
+      if (searchViewLayout.isShown()) hideSearchView();
+      else revealSearchView();
     } else if (item.getItemId() == R.id.monofont) {
       item.setChecked(!item.isChecked());
       mainTextView.setTypeface(item.isChecked() ? inputTypefaceMono : inputTypefaceDefault);
-    } else if (item.getItemId() == R.id.syntax_highlight) {
-      toggleSyntaxHighlighting();
-    } else if (item.getItemId() == R.id.fold_all) {
-      if (codeFoldingManager != null) {
-        codeFoldingManager.foldAll();
-      }
-    } else if (item.getItemId() == R.id.unfold_all) {
-      if (codeFoldingManager != null) {
-        codeFoldingManager.unfoldAll();
-      }
-    } else if (item.getItemId() == R.id.git_history) {
-      showGitHistory();
-    } else if (item.getItemId() == R.id.git_diff) {
-      showGitDiff();
     } else {
       return false;
     }
     return super.onOptionsItemSelected(item);
-  }
-
-  /**
-   * Toggle syntax highlighting
-   */
-  private void toggleSyntaxHighlighting() {
-    if (syntaxHighlighter == null) return;
-    
-    if (syntaxHighlighter.isHighlightingAvailable()) {
-      // Disable highlighting
-      syntaxHighlighter.setLanguage(SyntaxHighlighter.Language.UNKNOWN);
-      if (mainTextView.getText() != null) {
-        // Remove all color spans
-        ForegroundColorSpan[] spans = mainTextView.getText().getSpans(
-            0, mainTextView.getText().length(), ForegroundColorSpan.class);
-        for (ForegroundColorSpan span : spans) {
-          mainTextView.getText().removeSpan(span);
-        }
-      }
-    } else {
-      // Enable highlighting
-      EditableFileAbstraction file = viewModel.getFile();
-      if (file != null && file.name != null) {
-        syntaxHighlighter.setLanguage(file.name);
-        if (mainTextView.getText() != null) {
-          syntaxHighlighter.applyHighlightingToEditable(mainTextView.getText());
-        }
-      }
-    }
-    invalidateOptionsMenu();
-  }
-
-  /**
-   * Show Git history dialog
-   */
-  private void showGitHistory() {
-    EditableFileAbstraction file = viewModel.getFile();
-    if (file == null || file.scheme != FILE) return;
-    
-    File javaFile = file.hybridFileParcelable.getFile();
-    if (javaFile == null) return;
-    
-    GitIntegration.getFileHistory(javaFile, 20, new GitIntegration.GitCallback<List<GitIntegration.GitCommit>>() {
-      @Override
-      public void onResult(List<GitIntegration.GitCommit> commits) {
-        showHistoryDialog(commits);
-      }
-      
-      @Override
-      public void onError(String error) {
-        Toast.makeText(TextEditorActivity.this, 
-            getString(R.string.git_history_error, error), Toast.LENGTH_SHORT).show();
-      }
-    });
-  }
-
-  /**
-   * Show history dialog
-   */
-  private void showHistoryDialog(List<GitIntegration.GitCommit> commits) {
-    if (commits == null || commits.isEmpty()) {
-      Toast.makeText(this, R.string.git_no_history, Toast.LENGTH_SHORT).show();
-      return;
-    }
-    
-    String[] items = new String[commits.size()];
-    for (int i = 0; i < commits.size(); i++) {
-      GitIntegration.GitCommit commit = commits.get(i);
-      items[i] = commit.shortHash + " - " + commit.message + "\n" +
-                 commit.author + " - " + commit.date;
-    }
-    
-    new MaterialDialog.Builder(this)
-        .title(R.string.git_history_title)
-        .items(items)
-        .positiveText(R.string.close)
-        .build()
-        .show();
-  }
-
-  /**
-   * Show Git diff dialog
-   */
-  private void showGitDiff() {
-    EditableFileAbstraction file = viewModel.getFile();
-    if (file == null || file.scheme != FILE) return;
-    
-    File javaFile = file.hybridFileParcelable.getFile();
-    if (javaFile == null) return;
-    
-    GitIntegration.getFileDiff(javaFile, new GitIntegration.GitCallback<List<GitIntegration.LineChange>>() {
-      @Override
-      public void onResult(List<GitIntegration.LineChange> changes) {
-        showDiffDialog(changes);
-      }
-      
-      @Override
-      public void onError(String error) {
-        Toast.makeText(TextEditorActivity.this, 
-            getString(R.string.git_diff_error, error), Toast.LENGTH_SHORT).show();
-      }
-    });
-  }
-
-  /**
-   * Show diff dialog
-   */
-  private void showDiffDialog(List<GitIntegration.LineChange> changes) {
-    if (changes == null || changes.isEmpty()) {
-      Toast.makeText(this, R.string.git_no_changes, Toast.LENGTH_SHORT).show();
-      return;
-    }
-    
-    StringBuilder diffText = new StringBuilder();
-    for (GitIntegration.LineChange change : changes) {
-      switch (change.type) {
-        case ADDED:
-          diffText.append("+ ").append(change.content).append("\n");
-          break;
-        case DELETED:
-          diffText.append("- ").append(change.content).append("\n");
-          break;
-        case UNCHANGED:
-          diffText.append("  ").append(change.content).append("\n");
-          break;
-      }
-    }
-    
-    new MaterialDialog.Builder(this)
-        .title(R.string.git_diff_title)
-        .content(diffText.toString())
-        .positiveText(R.string.close)
-        .build()
-        .show();
-  }
-
-  /**
-   * Perform replace operation
-   */
-  private void performReplace() {
-    if (mainTextView.getText() == null || searchEditText.getText() == null || 
-        replaceEditText == null || replaceEditText.getText() == null) {
-      return;
-    }
-    
-    String searchText = searchEditText.getText().toString();
-    String replaceText = replaceEditText.getText().toString();
-    String content = mainTextView.getText().toString();
-    
-    if (searchText.isEmpty()) return;
-    
-    int cursorPosition = mainTextView.getSelectionStart();
-    boolean useRegex = regexCheckBox != null && regexCheckBox.isChecked();
-    boolean caseSensitive = caseSensitiveCheckBox == null || caseSensitiveCheckBox.isChecked();
-    
-    try {
-      String result;
-      if (useRegex) {
-        int flags = caseSensitive ? 0 : Pattern.CASE_INSENSITIVE;
-        Pattern pattern = Pattern.compile(searchText, flags);
-        result = pattern.matcher(content).replaceFirst(replaceText);
-      } else {
-        if (caseSensitive) {
-          result = content.replaceFirst(Pattern.quote(searchText), replaceText);
-        } else {
-          result = content.replaceFirst("(?i)" + Pattern.quote(searchText), replaceText);
-        }
-      }
-      
-      mainTextView.setText(result);
-      mainTextView.setSelection(Math.min(cursorPosition, result.length()));
-      
-    } catch (PatternSyntaxException e) {
-      Toast.makeText(this, R.string.invalid_regex, Toast.LENGTH_SHORT).show();
-    }
-  }
-
-  /**
-   * Perform replace all operation
-   */
-  private void performReplaceAll() {
-    if (mainTextView.getText() == null || searchEditText.getText() == null || 
-        replaceEditText == null || replaceEditText.getText() == null) {
-      return;
-    }
-    
-    String searchText = searchEditText.getText().toString();
-    String replaceText = replaceEditText.getText().toString();
-    String content = mainTextView.getText().toString();
-    
-    if (searchText.isEmpty()) return;
-    
-    boolean useRegex = regexCheckBox != null && regexCheckBox.isChecked();
-    boolean caseSensitive = caseSensitiveCheckBox == null || caseSensitiveCheckBox.isChecked();
-    
-    try {
-      String result;
-      if (useRegex) {
-        int flags = caseSensitive ? 0 : Pattern.CASE_INSENSITIVE;
-        Pattern pattern = Pattern.compile(searchText, flags);
-        result = pattern.matcher(content).replaceAll(replaceText);
-      } else {
-        if (caseSensitive) {
-          result = content.replace(searchText, replaceText);
-        } else {
-          result = content.replaceAll("(?i)" + Pattern.quote(searchText), replaceText);
-        }
-      }
-      
-      int replacements = countOccurrences(content, searchText, useRegex, caseSensitive);
-      mainTextView.setText(result);
-      
-      Toast.makeText(this, 
-          getString(R.string.replaced_count, replacements), Toast.LENGTH_SHORT).show();
-      
-    } catch (PatternSyntaxException e) {
-      Toast.makeText(this, R.string.invalid_regex, Toast.LENGTH_SHORT).show();
-    }
-  }
-
-  /**
-   * Count occurrences of search text
-   */
-  private int countOccurrences(String text, String search, boolean useRegex, boolean caseSensitive) {
-    if (useRegex) {
-      int flags = caseSensitive ? 0 : Pattern.CASE_INSENSITIVE;
-      Pattern pattern = Pattern.compile(search, flags);
-      Matcher matcher = pattern.matcher(text);
-      int count = 0;
-      while (matcher.find()) count++;
-      return count;
-    } else {
-      if (caseSensitive) {
-        return text.split(Pattern.quote(search), -1).length - 1;
-      } else {
-        return text.split("(?i)" + Pattern.quote(search), -1).length - 1;
-      }
-    }
   }
 
   @Override
@@ -917,10 +351,6 @@ public class TextEditorActivity extends ThemedActivity
 
     if (cacheFile != null && cacheFile.exists()) {
       cacheFile.delete();
-    }
-    
-    if (highlightHandler != null && highlightRunnable != null) {
-      highlightHandler.removeCallbacks(highlightRunnable);
     }
   }
 
@@ -989,15 +419,6 @@ public class TextEditorActivity extends ThemedActivity
           250);
 
       viewModel.setTimer(newTimer);
-      
-      // Schedule syntax highlighting
-      if (highlightHandler != null && highlightRunnable != null) {
-        highlightHandler.removeCallbacks(highlightRunnable);
-        highlightHandler.postDelayed(highlightRunnable, HIGHLIGHT_DELAY_MS);
-      }
-      
-      // Update line numbers
-      updateLineNumbers();
     }
   }
 
@@ -1111,56 +532,6 @@ public class TextEditorActivity extends ThemedActivity
         });
 
     searchViewLayout.startAnimation(animation);
-  }
-
-  private void revealReplaceView() {
-    if (replaceViewLayout == null) return;
-    
-    replaceViewLayout.setVisibility(View.VISIBLE);
-    Animation animation = AnimationUtils.loadAnimation(this, R.anim.fade_in_top);
-    animation.setAnimationListener(
-        new Animation.AnimationListener() {
-          @Override
-          public void onAnimationStart(Animation animation) {}
-
-          @Override
-          public void onAnimationEnd(Animation animation) {
-            if (replaceEditText != null) {
-              replaceEditText.requestFocus();
-              ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
-                  .showSoftInput(replaceEditText, InputMethodManager.SHOW_IMPLICIT);
-            }
-          }
-
-          @Override
-          public void onAnimationRepeat(Animation animation) {}
-        });
-    replaceViewLayout.startAnimation(animation);
-  }
-
-  private void hideReplaceView() {
-    if (replaceViewLayout == null) return;
-    
-    Animation animation = AnimationUtils.loadAnimation(this, R.anim.fade_out_top);
-    animation.setAnimationListener(
-        new Animation.AnimationListener() {
-          @Override
-          public void onAnimationStart(Animation animation) {}
-
-          @Override
-          public void onAnimationEnd(Animation animation) {
-            replaceViewLayout.setVisibility(View.GONE);
-            if (replaceEditText != null) {
-              ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
-                  .hideSoftInputFromWindow(
-                      replaceEditText.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
-            }
-          }
-
-          @Override
-          public void onAnimationRepeat(Animation animation) {}
-        });
-    replaceViewLayout.startAnimation(animation);
   }
 
   @Override
