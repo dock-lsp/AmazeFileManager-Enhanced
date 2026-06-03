@@ -139,11 +139,11 @@ public class TerminalSession {
                 }
 
                 // Execute the command
-                Shell.Result result = shell.newJob().add(input).to(new java.io.ByteArrayOutputStream(), new java.io.ByteArrayOutputStream()).exec();
+                Shell.Result result = shell.newJob().add(input).exec();
 
                 // Get output
-                String stdout = result.getOut().toString();
-                String stderr = result.getErr().toString();
+                String stdout = String.join("\n", result.getOut());
+                String stderr = String.join("\n", result.getErr());
 
                 mainHandler.post(() -> {
                     if (callback != null) {

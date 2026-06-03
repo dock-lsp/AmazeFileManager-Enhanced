@@ -257,7 +257,6 @@ dependencies {
 
     implementation libs.gson
     implementation libs.amaze.trashBin
-    implementation libs.photo.editor
     implementation libs.u.crop
 
     // PDF processing libraries

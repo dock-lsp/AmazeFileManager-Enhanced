@@ -62,7 +62,7 @@ import androidx.media3.exoplayer.source.MediaSource;
 import androidx.media3.exoplayer.source.ProgressiveMediaSource;
 import androidx.media3.ui.AspectRatioFrameLayout;
 import androidx.media3.ui.PlayerView;
-import androidx.media3.common.Util;
+import androidx.media3.common.util.Util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
