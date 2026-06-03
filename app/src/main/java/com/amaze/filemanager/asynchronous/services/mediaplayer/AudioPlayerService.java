@@ -301,11 +301,11 @@ public class AudioPlayerService extends Service implements Player.Listener {
                 .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                         .setMediaSession(mediaSession.getSessionToken())
                         .setShowActionsInCompactView(0, 1, 2))
-                .addAction(R.drawable.ic_skip_previous_white_24dp, getString(R.string.previous), previousPendingIntent)
+                .addAction(R.drawable.ic_skip_previous_white_24dp, getString(R.string.media_previous), previousPendingIntent)
                 .addAction(isPlaying ? R.drawable.ic_pause_white_24dp : R.drawable.ic_play_arrow_white_24dp,
-                        isPlaying ? getString(R.string.pause) : getString(R.string.play), playPausePendingIntent)
-                .addAction(R.drawable.ic_skip_next_white_24dp, getString(R.string.next), nextPendingIntent)
-                .addAction(R.drawable.ic_close_white_24dp, getString(R.string.stop), stopPendingIntent);
+                        isPlaying ? getString(R.string.media_pause) : getString(R.string.media_play), playPausePendingIntent)
+                .addAction(R.drawable.ic_skip_next_white_24dp, getString(R.string.media_next), nextPendingIntent)
+                .addAction(R.drawable.ic_close_white_24dp, getString(R.string.media_stop), stopPendingIntent);
 
         return builder.build();
     }

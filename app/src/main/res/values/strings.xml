@@ -880,11 +880,11 @@ You only need to do this once, until the next time you select a new location for
     <string name="volume">Volume</string>
     <string name="brightness">Brightness</string>
     <string name="seek">Seek</string>
-    <string name="previous">Previous</string>
-    <string name="next">Next</string>
-    <string name="pause">Pause</string>
-    <string name="play">Play</string>
-    <string name="stop">Stop</string>
+    <string name="media_previous">Previous</string>
+    <string name="media_next">Next</string>
+    <string name="media_pause">Pause</string>
+    <string name="media_play">Play</string>
+    <string name="media_stop">Stop</string>
 
     <!-- Image Editor -->
     <string name="image_editor">Image Editor</string>
@@ -907,11 +907,11 @@ You only need to do this once, until the next time you select a new location for
     <string name="filter_blur">Blur</string>
     <string name="filter_sharpen">Sharpen</string>
     <string name="filter_invert">Invert</string>
-    <string name="brightness">Brightness</string>
+    <string name="image_brightness">Brightness</string>
     <string name="contrast">Contrast</string>
     <string name="reset">Reset</string>
     <string name="brush">Brush</string>
-    <string name="text">Text</string>
+    <string name="image_text">Text</string>
     <string name="mosaic">Mosaic</string>
     <string name="eraser">Eraser</string>
     <string name="undo">Undo</string>
@@ -926,7 +926,7 @@ You only need to do this once, until the next time you select a new location for
     <string name="error_cropping_image">Error cropping image</string>
     <string name="no_image_selected">No image selected</string>
     <string name="exit_without_saving">Exit without saving?</string>
-    <string name="unsaved_changes">You have unsaved changes</string>
+    <string name="image_unsaved_changes">You have unsaved changes</string>
 
     <!-- Log Viewer -->
     <string name="log_viewer_title">Log Viewer</string>
@@ -937,10 +937,10 @@ You only need to do this once, until the next time you select a new location for
     <string name="log_level_warn">Warn</string>
     <string name="log_level_error">Error</string>
     <string name="search_logs_hint">Search logs...</string>
-    <string name="clear">Clear</string>
+    <string name="log_clear">Clear</string>
     <string name="scroll_to_bottom">Scroll to bottom</string>
-    <string name="pause">Pause</string>
-    <string name="resume">Resume</string>
+    <string name="log_pause">Pause</string>
+    <string name="log_resume">Resume</string>
     <string name="log_status_running">Running</string>
     <string name="log_status_paused">Paused</string>
     <string name="log_status_error">Error</string>
@@ -1015,6 +1015,6 @@ You only need to do this once, until the next time you select a new location for
     <string name="git_diff_title">Git Diff</string>
     <string name="git_history_error">Error loading history: %s</string>
     <string name="git_diff_error">Error loading diff: %s</string>
-    <string name="close">Close</string>
+    <string name="git_close">Close</string>
 </resources>
 

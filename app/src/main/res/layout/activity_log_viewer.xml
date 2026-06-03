@@ -203,7 +203,7 @@
         android:layout_margin="16dp"
         android:layout_marginBottom="72dp"
         android:src="@drawable/ic_pause_white_24dp"
-        android:contentDescription="@string/pause"
+        android:contentDescription="@string/log_pause"
         app:backgroundTint="?attr/colorAccent" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
