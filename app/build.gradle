@@ -78,7 +78,6 @@ android {
         play {
             dimension 'static'
             buildConfigField "boolean", "IS_VERSION_FDROID", "false"
-            signingConfig signingConfigs.release
         }
     }
 
