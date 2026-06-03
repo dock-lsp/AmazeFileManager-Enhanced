@@ -20,7 +20,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/background_color"
+    android:background="?android:attr/colorBackground"
     android:orientation="vertical"
     android:padding="24dp">
 
@@ -31,7 +31,7 @@
         android:layout_height="48dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_arrow_back_black_24dp"
-        android:tint="?attr/text_color" />
+        android:tint="?android:attr/textColorPrimary" />
 
     <!-- Album Art Placeholder -->
     <FrameLayout
@@ -47,7 +47,7 @@
             android:layout_gravity="center"
             android:alpha="0.3"
             android:src="@drawable/ic_library_music_white_24dp"
-            android:tint="?attr/accent_color" />
+            android:tint="?attr/colorAccent" />
 
     </FrameLayout>
 
@@ -66,7 +66,7 @@
             android:gravity="center"
             android:maxLines="2"
             android:text="@string/unknown"
-            android:textColor="?attr/text_color"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -79,7 +79,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:text="@string/unknown"
-            android:textColor="?attr/text_color"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp"
             android:alpha="0.7" />
 
@@ -110,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00:00"
-                android:textColor="?attr/text_color"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="14sp" />
 
             <View
@@ -123,7 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00:00"
-                android:textColor="?attr/text_color"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -146,7 +146,7 @@
             android:alpha="0.5"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_shuffle_white_24dp"
-            android:tint="?attr/text_color" />
+            android:tint="?android:attr/textColorPrimary" />
 
         <ImageButton
             android:id="@+id/audioPreviousButton"
@@ -155,7 +155,7 @@
             android:layout_marginStart="24dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_skip_previous_white_24dp"
-            android:tint="?attr/text_color" />
+            android:tint="?android:attr/textColorPrimary" />
 
         <ImageButton
             android:id="@+id/audioPlayPauseButton"
@@ -165,7 +165,7 @@
             android:layout_marginEnd="24dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_play_arrow_white_24dp"
-            android:tint="?attr/accent_color" />
+            android:tint="?attr/colorAccent" />
 
         <ImageButton
             android:id="@+id/audioNextButton"
@@ -174,7 +174,7 @@
             android:layout_marginEnd="24dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_skip_next_white_24dp"
-            android:tint="?attr/text_color" />
+            android:tint="?android:attr/textColorPrimary" />
 
         <ImageButton
             android:id="@+id/audioRepeatButton"
@@ -183,7 +183,7 @@
             android:alpha="0.5"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_repeat_white_24dp"
-            android:tint="?attr/text_color" />
+            android:tint="?android:attr/textColorPrimary" />
 
     </LinearLayout>
 

@@ -19,7 +19,7 @@
 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
-    <solid android:color="?attr/accent_color" />
+    <solid android:color="?attr/colorAccent" />
     <size
         android:width="16dp"
         android:height="16dp" />
