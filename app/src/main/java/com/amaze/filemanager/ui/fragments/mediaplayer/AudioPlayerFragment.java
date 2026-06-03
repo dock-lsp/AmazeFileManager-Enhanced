@@ -45,7 +45,7 @@ import androidx.fragment.app.Fragment;
 
 import com.amaze.filemanager.R;
 import com.amaze.filemanager.asynchronous.services.mediaplayer.AudioPlayerService;
-import com.google.android.exoplayer2.Player;
+import androidx.media3.common.Player;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -350,7 +350,7 @@ public class AudioPlayerFragment extends Fragment implements Player.Listener {
     }
 
     @Override
-    public void onPlayerError(@NonNull com.google.android.exoplayer2.PlaybackException error) {
+    public void onPlayerError(@NonNull androidx.media3.common.PlaybackException error) {
         LOG.error("Audio player error: " + error.getMessage(), error);
         Toast.makeText(requireContext(), R.string.error_io, Toast.LENGTH_LONG).show();
     }

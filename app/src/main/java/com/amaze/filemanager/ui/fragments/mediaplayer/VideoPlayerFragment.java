@@ -51,18 +51,18 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 
 import com.amaze.filemanager.R;
-import com.google.android.exoplayer2.C;
-import com.google.android.exoplayer2.ExoPlayer;
-import com.google.android.exoplayer2.MediaItem;
-import com.google.android.exoplayer2.PlaybackParameters;
-import com.google.android.exoplayer2.Player;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.ProgressiveMediaSource;
-import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
-import com.google.android.exoplayer2.ui.PlayerView;
-import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.DefaultDataSource;
-import com.google.android.exoplayer2.util.Util;
+import androidx.media3.common.C;
+import androidx.media3.common.MediaItem;
+import androidx.media3.common.PlaybackParameters;
+import androidx.media3.common.Player;
+import androidx.media3.datasource.DataSource;
+import androidx.media3.datasource.DefaultDataSource;
+import androidx.media3.exoplayer.ExoPlayer;
+import androidx.media3.exoplayer.source.MediaSource;
+import androidx.media3.exoplayer.source.ProgressiveMediaSource;
+import androidx.media3.ui.AspectRatioFrameLayout;
+import androidx.media3.ui.PlayerView;
+import androidx.media3.common.Util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -549,7 +549,7 @@ public class VideoPlayerFragment extends Fragment implements Player.Listener {
     }
 
     @Override
-    public void onPlayerError(@NonNull com.google.android.exoplayer2.PlaybackException error) {
+    public void onPlayerError(@NonNull androidx.media3.common.PlaybackException error) {
         LOG.error("Player error: " + error.getMessage(), error);
         Toast.makeText(requireContext(), R.string.error_io, Toast.LENGTH_LONG).show();
     }
