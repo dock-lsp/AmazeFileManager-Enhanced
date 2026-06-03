@@ -48,7 +48,6 @@ import com.amaze.filemanager.filesystem.cloud.CloudUtil;
 import com.amaze.filemanager.filesystem.files.FileUtils;
 import com.amaze.filemanager.ui.ExtensionsKt;
 import com.amaze.filemanager.ui.activities.AboutActivity;
-import com.amaze.filemanager.ui.activities.LogViewerActivity;
 import com.amaze.filemanager.ui.activities.MainActivity;
 import com.amaze.filemanager.ui.activities.PreferencesActivity;
 import com.amaze.filemanager.ui.activities.UtilitiesAliasActivity;
@@ -623,19 +622,6 @@ public class Drawer implements NavigationView.OnNavigationItemSelectedListener {
               else onDrawerClosed();
             }),
         R.drawable.ic_android_white_24dp,
-        null);
-
-    addNewItem(
-        menu,
-        LASTGROUP,
-        order++,
-        R.string.log_viewer,
-        new MenuMetadata(
-            () -> {
-              Intent in = new Intent(mainActivity, LogViewerActivity.class);
-              mainActivity.startActivity(in);
-            }),
-        R.drawable.ic_bug_report_grey_24dp,
         null);
 
     addNewItem(

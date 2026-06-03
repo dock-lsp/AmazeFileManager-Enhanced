@@ -50,8 +50,6 @@ import com.amaze.filemanager.filesystem.cloud.CloudUtil;
 import com.amaze.filemanager.filesystem.compressed.CompressedHelper;
 import com.amaze.filemanager.ui.activities.DatabaseViewerActivity;
 import com.amaze.filemanager.ui.activities.MainActivity;
-import com.amaze.filemanager.ui.activities.pdf.PdfViewerActivity;
-import com.amaze.filemanager.ui.activities.imageeditor.ImageEditorActivity;
 import com.amaze.filemanager.ui.activities.superclasses.PermissionsActivity;
 import com.amaze.filemanager.ui.activities.superclasses.PreferenceActivity;
 import com.amaze.filemanager.ui.dialogs.GeneralDialogCreation;
@@ -674,12 +672,8 @@ public class FileUtils {
       intent.setType(MimeTypes.getMimeType(f.getPath(), false));
       intent.putExtra("path", f.getPath());
       mainActivity.startActivity(intent);
-    } else if (defaultHandler && f.getName().toLowerCase().endsWith(".pdf")) {
-      Intent intent = new Intent(mainActivity, PdfViewerActivity.class);
-      intent.putExtra(PdfViewerActivity.EXTRA_FILE_PATH, f.getPath());
-      mainActivity.startActivity(intent);
     } else if (defaultHandler && isImageFile(f.getPath())) {
-      openImageEditor(f, mainActivity);
+      openFileDialogFragmentFor(f, mainActivity, useNewStack);
     } else {
       try {
         openFileDialogFragmentFor(f, mainActivity, useNewStack);
@@ -690,26 +684,6 @@ public class FileUtils {
         openWith(f, mainActivity, useNewStack);
       }
     }
-  }
-
-  /**
-   * Check if file is an image file based on extension
-   */
-  private static boolean isImageFile(String path) {
-    if (path == null) return false;
-    String lowerPath = path.toLowerCase();
-    return lowerPath.endsWith(".jpg") || lowerPath.endsWith(".jpeg") ||
-           lowerPath.endsWith(".png") || lowerPath.endsWith(".webp") ||
-           lowerPath.endsWith(".gif") || lowerPath.endsWith(".bmp");
-  }
-
-  /**
-   * Open image in ImageEditorActivity
-   */
-  public static void openImageEditor(@NonNull final File f, @NonNull final MainActivity mainActivity) {
-    Intent intent = new Intent(mainActivity, ImageEditorActivity.class);
-    intent.putExtra(ImageEditorActivity.EXTRA_IMAGE_PATH, f.getAbsolutePath());
-    mainActivity.startActivity(intent);
   }
 
   private static void openFileDialogFragmentFor(

@@ -30,6 +30,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -55,14 +56,10 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.Editable;
-import android.text.Spannable;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.BackgroundColorSpan;
-import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -87,8 +84,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 /**
- * Enhanced Text Editor Activity with syntax highlighting, code folding, Git integration,
- * line numbers, auto-indent, bracket matching, and enhanced search/replace.
+ * Enhanced Text Editor Activity with line numbers, auto-indent, bracket matching,
+ * and enhanced search/replace.
  */
 public class TextEditorActivity extends ThemedActivity
     implements TextWatcher, View.OnClickListener {
@@ -96,8 +93,6 @@ public class TextEditorActivity extends ThemedActivity
   public AppCompatEditText mainTextView;
   public AppCompatEditText searchEditText;
   private TextView lineNumberView;
-  private TextView gitStatusView;
-  private View gitStatusIndicator;
   private HorizontalScrollView horizontalScrollView;
   private LinearLayout editorContainer;
   
@@ -126,18 +121,6 @@ public class TextEditorActivity extends ThemedActivity
   private Snackbar loadingSnackbar;
 
   private TextEditorActivityViewModel viewModel;
-  
-  // Enhanced features
-  private SyntaxHighlighter syntaxHighlighter;
-  private CodeFoldingManager codeFoldingManager;
-  private GitIntegration.GitFileStatus gitFileStatus;
-  private Handler highlightHandler;
-  private Runnable highlightRunnable;
-  private static final long HIGHLIGHT_DELAY_MS = 300;
-  
-  // Bracket matching
-  private int lastBracketMatchStart = -1;
-  private int lastBracketMatchEnd = -1;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -147,7 +130,6 @@ public class TextEditorActivity extends ThemedActivity
     setSupportActionBar(toolbar);
 
     viewModel = new ViewModelProvider(this).get(TextEditorActivityViewModel.class);
-    highlightHandler = new Handler(Looper.getMainLooper());
 
     searchViewLayout = findViewById(R.id.textEditorSearchBar);
     replaceViewLayout = findViewById(R.id.textEditorReplaceBar);
@@ -186,8 +168,6 @@ public class TextEditorActivity extends ThemedActivity
     mainTextView = findViewById(R.id.textEditorMainEditText);
     scrollView = findViewById(R.id.textEditorScrollView);
     lineNumberView = findViewById(R.id.lineNumberView);
-    gitStatusView = findViewById(R.id.gitStatusView);
-    gitStatusIndicator = findViewById(R.id.gitStatusIndicator);
     horizontalScrollView = findViewById(R.id.horizontalScrollView);
     editorContainer = findViewById(R.id.editorContainer);
 
@@ -210,11 +190,7 @@ public class TextEditorActivity extends ThemedActivity
     mainTextView.addTextChangedListener(this);
     
     // Setup enhanced features
-    setupSyntaxHighlighter();
-    setupCodeFolding();
     setupLineNumbers();
-    setupBracketMatching();
-    setupGitIntegration();
 
     if (getAppTheme().equals(AppTheme.DARK)) {
       mainTextView.setBackgroundColor(Utils.getColor(this, R.color.holo_dark_action_mode));
@@ -260,36 +236,6 @@ public class TextEditorActivity extends ThemedActivity
   }
 
   /**
-   * Setup syntax highlighter based on file extension
-   */
-  private void setupSyntaxHighlighter() {
-    syntaxHighlighter = new SyntaxHighlighter();
-    
-    EditableFileAbstraction file = viewModel.getFile();
-    if (file != null && file.name != null) {
-      syntaxHighlighter.setLanguage(file.name);
-    }
-    
-    // Apply initial highlighting after a delay
-    highlightRunnable = () -> {
-      if (mainTextView.getText() != null && syntaxHighlighter.isHighlightingAvailable()) {
-        syntaxHighlighter.applyHighlightingToEditable(mainTextView.getText());
-      }
-    };
-  }
-
-  /**
-   * Setup code folding manager
-   */
-  private void setupCodeFolding() {
-    codeFoldingManager = new CodeFoldingManager();
-    EditableFileAbstraction file = viewModel.getFile();
-    if (file != null && file.name != null) {
-      codeFoldingManager.setLanguage(SyntaxHighlighter.detectLanguage(file.name));
-    }
-  }
-
-  /**
    * Setup line number display
    */
   private void setupLineNumbers() {
@@ -330,146 +276,6 @@ public class TextEditorActivity extends ThemedActivity
       if (text.charAt(i) == '\n') count++;
     }
     return count;
-  }
-
-  /**
-   * Setup bracket matching
-   */
-  private void setupBracketMatching() {
-    mainTextView.setOnClickListener(v -> {
-      int cursorPosition = mainTextView.getSelectionStart();
-      if (cursorPosition >= 0 && mainTextView.getText() != null) {
-        highlightMatchingBracket(cursorPosition);
-      }
-    });
-  }
-
-  /**
-   * Highlight matching bracket
-   */
-  private void highlightMatchingBracket(int cursorPosition) {
-    if (syntaxHighlighter == null || mainTextView.getText() == null) return;
-    
-    // Remove previous bracket highlights
-    if (lastBracketMatchStart >= 0) {
-      BackgroundColorSpan[] spans = mainTextView.getText().getSpans(
-          lastBracketMatchStart, lastBracketMatchStart + 1, BackgroundColorSpan.class);
-      for (BackgroundColorSpan span : spans) {
-        mainTextView.getText().removeSpan(span);
-      }
-    }
-    if (lastBracketMatchEnd >= 0) {
-      BackgroundColorSpan[] spans = mainTextView.getText().getSpans(
-          lastBracketMatchEnd, lastBracketMatchEnd + 1, BackgroundColorSpan.class);
-      for (BackgroundColorSpan span : spans) {
-        mainTextView.getText().removeSpan(span);
-      }
-    }
-    
-    // Find and highlight matching bracket
-    int matchPos = syntaxHighlighter.highlightMatchingBracket(mainTextView.getText(), cursorPosition);
-    
-    if (matchPos >= 0) {
-      lastBracketMatchStart = cursorPosition;
-      lastBracketMatchEnd = matchPos;
-    }
-  }
-
-  /**
-   * Setup Git integration
-   */
-  private void setupGitIntegration() {
-    EditableFileAbstraction file = viewModel.getFile();
-    if (file == null || file.scheme != FILE) return;
-    
-    File javaFile = file.hybridFileParcelable.getFile();
-    if (javaFile == null) return;
-    
-    // Check if file is in Git repository
-    if (GitIntegration.isInGitRepository(javaFile)) {
-      // Load Git status
-      GitIntegration.getFileStatus(javaFile, new GitIntegration.GitCallback<GitIntegration.GitFileStatus>() {
-        @Override
-        public void onResult(GitIntegration.GitFileStatus status) {
-          gitFileStatus = status;
-          updateGitStatusUI();
-        }
-        
-        @Override
-        public void onError(String error) {
-          // Git not available or error
-          if (gitStatusView != null) {
-            gitStatusView.setVisibility(View.GONE);
-          }
-          if (gitStatusIndicator != null) {
-            gitStatusIndicator.setVisibility(View.GONE);
-          }
-        }
-      });
-      
-      // Load current branch
-      GitIntegration.getCurrentBranch(javaFile, new GitIntegration.GitCallback<String>() {
-        @Override
-        public void onResult(String branch) {
-          if (branch != null && gitStatusView != null) {
-            String currentText = gitStatusView.getText().toString();
-            gitStatusView.setText(branch + " | " + currentText);
-          }
-        }
-        
-        @Override
-        public void onError(String error) {
-          // Ignore
-        }
-      });
-    } else {
-      if (gitStatusView != null) {
-        gitStatusView.setVisibility(View.GONE);
-      }
-      if (gitStatusIndicator != null) {
-        gitStatusIndicator.setVisibility(View.GONE);
-      }
-    }
-  }
-
-  /**
-   * Update Git status UI
-   */
-  private void updateGitStatusUI() {
-    if (gitFileStatus == null || gitStatusView == null) return;
-    
-    GitIntegration.FileStatus status = gitFileStatus.getEffectiveStatus();
-    String statusText;
-    
-    switch (status) {
-      case MODIFIED:
-        statusText = getString(R.string.git_modified);
-        break;
-      case ADDED:
-        statusText = getString(R.string.git_added);
-        break;
-      case DELETED:
-        statusText = getString(R.string.git_deleted);
-        break;
-      case UNTRACKED:
-        statusText = getString(R.string.git_untracked);
-        break;
-      case RENAMED:
-        statusText = getString(R.string.git_renamed);
-        break;
-      case UNMODIFIED:
-        statusText = getString(R.string.git_unmodified);
-        break;
-      default:
-        statusText = status.name();
-    }
-    
-    gitStatusView.setText(statusText);
-    gitStatusView.setTextColor(status.getColor());
-    
-    if (gitStatusIndicator != null) {
-      gitStatusIndicator.setBackgroundColor(status.getColor());
-    }
   }
 
   @Override
@@ -578,15 +384,6 @@ public class TextEditorActivity extends ThemedActivity
     menu.findItem(R.id.save).setVisible(viewModel.getModified());
     menu.findItem(R.id.monofont).setChecked(inputTypefaceMono.equals(mainTextView.getTypeface()));
     
-    // Update syntax highlighting toggle
-    MenuItem highlightItem = menu.findItem(R.id.syntax_highlight);
-    if (highlightItem != null) {
-      highlightItem.setChecked(syntaxHighlighter != null && 
-          syntaxHighlighter.isHighlightingAvailable());
-      highlightItem.setEnabled(syntaxHighlighter != null && 
-          syntaxHighlighter.getCurrentLanguage() != SyntaxHighlighter.Language.UNKNOWN);
-    }
-    
     return super.onPrepareOptionsMenu(menu);
   }
 
@@ -650,158 +447,10 @@ public class TextEditorActivity extends ThemedActivity
     } else if (item.getItemId() == R.id.monofont) {
       item.setChecked(!item.isChecked());
       mainTextView.setTypeface(item.isChecked() ? inputTypefaceMono : inputTypefaceDefault);
-    } else if (item.getItemId() == R.id.syntax_highlight) {
-      toggleSyntaxHighlighting();
-    } else if (item.getItemId() == R.id.fold_all) {
-      if (codeFoldingManager != null) {
-        codeFoldingManager.foldAll();
-      }
-    } else if (item.getItemId() == R.id.unfold_all) {
-      if (codeFoldingManager != null) {
-        codeFoldingManager.unfoldAll();
-      }
-    } else if (item.getItemId() == R.id.git_history) {
-      showGitHistory();
-    } else if (item.getItemId() == R.id.git_diff) {
-      showGitDiff();
     } else {
       return false;
     }
     return super.onOptionsItemSelected(item);
-  }
-
-  /**
-   * Toggle syntax highlighting
-   */
-  private void toggleSyntaxHighlighting() {
-    if (syntaxHighlighter == null) return;
-    
-    if (syntaxHighlighter.isHighlightingAvailable()) {
-      // Disable highlighting
-      syntaxHighlighter.setLanguage(SyntaxHighlighter.Language.UNKNOWN);
-      if (mainTextView.getText() != null) {
-        // Remove all color spans
-        ForegroundColorSpan[] spans = mainTextView.getText().getSpans(
-            0, mainTextView.getText().length(), ForegroundColorSpan.class);
-        for (ForegroundColorSpan span : spans) {
-          mainTextView.getText().removeSpan(span);
-        }
-      }
-    } else {
-      // Enable highlighting
-      EditableFileAbstraction file = viewModel.getFile();
-      if (file != null && file.name != null) {
-        syntaxHighlighter.setLanguage(file.name);
-        if (mainTextView.getText() != null) {
-          syntaxHighlighter.applyHighlightingToEditable(mainTextView.getText());
-        }
-      }
-    }
-    invalidateOptionsMenu();
-  }
-
-  /**
-   * Show Git history dialog
-   */
-  private void showGitHistory() {
-    EditableFileAbstraction file = viewModel.getFile();
-    if (file == null || file.scheme != FILE) return;
-    
-    File javaFile = file.hybridFileParcelable.getFile();
-    if (javaFile == null) return;
-    
-    GitIntegration.getFileHistory(javaFile, 20, new GitIntegration.GitCallback<List<GitIntegration.GitCommit>>() {
-      @Override
-      public void onResult(List<GitIntegration.GitCommit> commits) {
-        showHistoryDialog(commits);
-      }
-      
-      @Override
-      public void onError(String error) {
-        Toast.makeText(TextEditorActivity.this, 
-            getString(R.string.git_history_error, error), Toast.LENGTH_SHORT).show();
-      }
-    });
-  }
-
-  /**
-   * Show history dialog
-   */
-  private void showHistoryDialog(List<GitIntegration.GitCommit> commits) {
-    if (commits == null || commits.isEmpty()) {
-      Toast.makeText(this, R.string.git_no_history, Toast.LENGTH_SHORT).show();
-      return;
-    }
-    
-    String[] items = new String[commits.size()];
-    for (int i = 0; i < commits.size(); i++) {
-      GitIntegration.GitCommit commit = commits.get(i);
-      items[i] = commit.shortHash + " - " + commit.message + "\n" +
-                 commit.author + " - " + commit.date;
-    }
-    
-    new MaterialDialog.Builder(this)
-        .title(R.string.git_history_title)
-        .items(items)
-        .positiveText(R.string.close)
-        .build()
-        .show();
-  }
-
-  /**
-   * Show Git diff dialog
-   */
-  private void showGitDiff() {
-    EditableFileAbstraction file = viewModel.getFile();
-    if (file == null || file.scheme != FILE) return;
-    
-    File javaFile = file.hybridFileParcelable.getFile();
-    if (javaFile == null) return;
-    
-    GitIntegration.getFileDiff(javaFile, new GitIntegration.GitCallback<List<GitIntegration.LineChange>>() {
-      @Override
-      public void onResult(List<GitIntegration.LineChange> changes) {
-        showDiffDialog(changes);
-      }
-      
-      @Override
-      public void onError(String error) {
-        Toast.makeText(TextEditorActivity.this, 
-            getString(R.string.git_diff_error, error), Toast.LENGTH_SHORT).show();
-      }
-    });
-  }
-
-  /**
-   * Show diff dialog
-   */
-  private void showDiffDialog(List<GitIntegration.LineChange> changes) {
-    if (changes == null || changes.isEmpty()) {
-      Toast.makeText(this, R.string.git_no_changes, Toast.LENGTH_SHORT).show();
-      return;
-    }
-    
-    StringBuilder diffText = new StringBuilder();
-    for (GitIntegration.LineChange change : changes) {
-      switch (change.type) {
-        case ADDED:
-          diffText.append("+ ").append(change.content).append("\n");
-          break;
-        case DELETED:
-          diffText.append("- ").append(change.content).append("\n");
-          break;
-        case UNCHANGED:
-          diffText.append("  ").append(change.content).append("\n");
-          break;
-      }
-    }
-    
-    new MaterialDialog.Builder(this)
-        .title(R.string.git_diff_title)
-        .content(diffText.toString())
-        .positiveText(R.string.close)
-        .build()
-        .show();
   }
 
   /**
@@ -918,10 +567,6 @@ public class TextEditorActivity extends ThemedActivity
     if (cacheFile != null && cacheFile.exists()) {
       cacheFile.delete();
     }
-    
-    if (highlightHandler != null && highlightRunnable != null) {
-      highlightHandler.removeCallbacks(highlightRunnable);
-    }
   }
 
   @Override
@@ -989,12 +634,6 @@ public class TextEditorActivity extends ThemedActivity
           250);
 
       viewModel.setTimer(newTimer);
-      
-      // Schedule syntax highlighting
-      if (highlightHandler != null && highlightRunnable != null) {
-        highlightHandler.removeCallbacks(highlightRunnable);
-        highlightHandler.postDelayed(highlightRunnable, HIGHLIGHT_DELAY_MS);
-      }
       
       // Update line numbers
       updateLineNumbers();

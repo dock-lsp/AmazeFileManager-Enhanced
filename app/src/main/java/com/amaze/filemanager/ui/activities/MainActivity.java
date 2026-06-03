@@ -1308,29 +1308,12 @@ public class MainActivity extends PermissionsActivity
             }
           } else if (item.getItemId() == R.id.search) {
             getAppbar().getSearchView().revealSearchView();
-          } else if (item.getItemId() == R.id.terminal) {
-            openTerminal();
           }
           return null;
         },
         false);
 
     return super.onOptionsItemSelected(item);
-  }
-
-  /**
-   * Open terminal in current directory
-   */
-  private void openTerminal() {
-    executeWithMainFragment(
-        mainFragment -> {
-          String currentPath = mainFragment.getCurrentPath();
-          Intent intent = new Intent(this, com.amaze.filemanager.ui.activities.terminal.TerminalActivity.class);
-          intent.putExtra(com.amaze.filemanager.ui.activities.terminal.TerminalActivity.ARG_INITIAL_PATH, currentPath);
-          intent.putExtra(com.amaze.filemanager.ui.activities.terminal.TerminalActivity.ARG_USE_ROOT, isRootExplorer());
-          startActivity(intent);
-          return null;
-        });
   }
 
   /*@Override

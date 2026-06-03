@@ -72,7 +72,6 @@ mpAndroidChart = "v3.0.2"
 concurrentTrees = "2.6.1"
 aboutLibraries = "6.1.1"
 amazeTrashBin = "1.0.10"
-uCrop = "2.2.8"
 exoplayer = "1.3.1"
 rustAndroidGradle = "0.9.6"
 
@@ -178,7 +177,6 @@ acra-core = { module = "ch.acra:acra-core", version.ref = "acraCore" }
 leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanaryAndroid" }
 
 amaze-trashBin = { module = "com.github.TeamAmaze:AmazeTrashBin", version.ref = "amazeTrashBin" }
-u-crop = { module = "com.github.yalantis:ucrop", version.ref = "uCrop" }
 
 # ExoPlayer
 exoplayer-core = { module = "androidx.media3:media3-exoplayer", version.ref = "exoplayer" }
