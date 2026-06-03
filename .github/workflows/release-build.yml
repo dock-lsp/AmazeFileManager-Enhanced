@@ -30,12 +30,19 @@ jobs:
           distribution: "temurin"
           java-version: 17
 
-      - name: Set up NDK
-        uses: nttld/setup-ndk@v1
-        with:
-          ndk-version: r28c
-          link-to-sdk: true
-          local-cache: true
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install NDK
+        run: |
+          sdkmanager "ndk;28.0.13004108" "cmake;3.22.1"
+          echo "ANDROID_NDK_HOME=$ANDROID_SDK_ROOT/ndk/28.0.13004108" >> $GITHUB_ENV
+          echo "NDK_HOME=$ANDROID_SDK_ROOT/ndk/28.0.13004108" >> $GITHUB_ENV
+
+      - name: Verify NDK
+        run: |
+          ls -la $ANDROID_SDK_ROOT/ndk/28.0.13004108/toolchains/llvm/prebuilt/linux-x86_64/bin/clang || echo "clang not found"
+          ls -la $ANDROID_SDK_ROOT/ndk/28.0.13004108/toolchains/llvm/prebuilt/linux-x86_64/bin/ | head -10
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
@@ -60,16 +67,6 @@ jobs:
           cd file_operations
           chmod +x setup_rust_android.sh
           ./setup_rust_android.sh
-
-      - name: Set NDK path for Rust
-        run: |
-          NDK_PATH="/usr/local/lib/android/sdk/ndk/28.2.13676358"
-          if [ ! -d "$NDK_PATH" ]; then
-            NDK_PATH="$(find /usr/local/lib/android/sdk/ndk -maxdepth 1 -type d | sort | tail -1)"
-          fi
-          echo "NDK_HOME=$NDK_PATH" >> $GITHUB_ENV
-          echo "ANDROID_NDK_HOME=$NDK_PATH" >> $GITHUB_ENV
-          echo "Using NDK at: $NDK_PATH"
 
       - name: Verify Rust setup
         run: |
@@ -153,12 +150,14 @@ jobs:
           distribution: "temurin"
           java-version: 17
 
-      - name: Set up NDK
-        uses: nttld/setup-ndk@v1
-        with:
-          ndk-version: r28c
-          link-to-sdk: true
-          local-cache: true
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install NDK
+        run: |
+          sdkmanager "ndk;28.0.13004108" "cmake;3.22.1"
+          echo "ANDROID_NDK_HOME=$ANDROID_SDK_ROOT/ndk/28.0.13004108" >> $GITHUB_ENV
+          echo "NDK_HOME=$ANDROID_SDK_ROOT/ndk/28.0.13004108" >> $GITHUB_ENV
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
@@ -183,16 +182,6 @@ jobs:
           cd file_operations
           chmod +x setup_rust_android.sh
           ./setup_rust_android.sh
-
-      - name: Set NDK path for Rust
-        run: |
-          NDK_PATH="/usr/local/lib/android/sdk/ndk/28.2.13676358"
-          if [ ! -d "$NDK_PATH" ]; then
-            NDK_PATH="$(find /usr/local/lib/android/sdk/ndk -maxdepth 1 -type d | sort | tail -1)"
-          fi
-          echo "NDK_HOME=$NDK_PATH" >> $GITHUB_ENV
-          echo "ANDROID_NDK_HOME=$NDK_PATH" >> $GITHUB_ENV
-          echo "Using NDK at: $NDK_PATH"
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
